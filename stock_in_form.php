@@ -15,7 +15,39 @@ FROM stock_inmst ORDER BY St_serial desc";
 $result0 = mysqli_query($link,$sql0);
 $row0 = mysqli_fetch_array($result0);
 $St_serial = $row0["St_serial"];
-$St_serial += 1;
+$sb = substr($St_serial, 0, 10); //เลือกตัวเลข
+	$subint = (int)($sb); //เปลี่ยนตัวแปรเป็น int
+	$P_id = ($subint+1); //+1
+	if($P_id <= 9){
+		$strnum = "000000000"; 
+		$P_id = $strnum.$P_id; 
+	}else if($P_id <= 99){
+		$strnum = "00000000"; 
+		$P_id = $strnum.$P_id; 
+	}else if($P_id <= 999){
+		$strnum = "0000000"; 
+		$P_id = $strnum.$P_id; 
+	}else if($P_id <= 9999){
+		$strnum = "000000"; 
+		$P_id = $strnum.$P_id; 
+	}else if($P_id <= 99999){
+		$strnum = "00000"; 
+		$P_id = $strnum.$P_id; 
+	}else if($P_id <= 999999){
+		$strnum = "0000"; 
+		$P_id = $strnum.$P_id;
+	}else if($P_id <= 9999999){
+		$strnum = "000"; 
+		$P_id = $strnum.$P_id;
+	}else if($P_id <= 99999999){
+		$strnum = "00"; 
+		$P_id = $strnum.$P_id;
+	}else if($P_id <= 999999999){
+		$strnum = "0"; 
+		$P_id = $strnum.$P_id;
+	}else{
+		$P_id = $startid.$P_id; 
+	}
 ?>
 <!doctype html>
 <html>
@@ -90,7 +122,7 @@ $St_serial += 1;
 	<center>
 		<h2><img src="picture/product/product.png" width="50" height="50"> <u> รับสินค้าเข้า </u></h2><br>
 		<form id="form" method=post action="stock_in_insert.php" enctype="multipart/form-data">
-		<h2>เลขที่ใบรับ: <?php echo $St_serial; ?></h2>
+		<h2>เลขที่ใบรับ: <?php echo $P_id; ?></h2>
 			<table border="1" width="80%" align="center" id="myTable">
 				<thead>
 					<tr>
