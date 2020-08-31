@@ -1,0 +1,38 @@
+<style>
+		body {
+			background: url(bg.jpg);
+		}
+		table {
+			border-collapse: collapse;
+			margin: auto;
+			min-width: 300px;
+		}
+		td {
+			text-align: left;
+			vertical-align: top;
+			max-width: 200px;
+			word-wrap:break-word;
+		}
+		td, th {
+			padding: 5px;
+			border-right: solid 1px white;
+			font: 14px tahoma;
+		}
+		td:last-child, th:last-child {
+			border-right: solid 0px !important;
+		}
+		tr:nth-of-type(odd) {
+			background: #dfd;
+		}
+		tr:nth-of-type(even) {
+			background: #ddf;
+		}
+		th {
+			background: rgb(197, 241, 35) !important;
+			color: black;
+		}
+		caption {
+			text-align: left;
+			margin-bottom: 5px;
+		}
+	</style>
