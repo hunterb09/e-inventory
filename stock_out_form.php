@@ -52,7 +52,7 @@ $result2 = mysqli_query($link, $sql);
 				});
 			});
 		});
-
+		
 		function showTpirce(result) {
 			$("#msg").html(result);
 		}
@@ -86,17 +86,7 @@ $result2 = mysqli_query($link, $sql);
 
 					//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่จะเพิ่ม)
 					var sumQty = parseInt(Qty);
-					for (i = 1; i < rows; i++) {
-						var Pn = document.frmprice['P_name' + i].value;
-						var strQt = document.frmprice['Qty' + i].value;
-						var Qty = parseInt(Qty);
-						var Qt = parseInt(strQt);
-						if (Pn == P_name) {
-							//alert(sumQty + Qt);
-							sumQty += Qt;
-							//alert(Pn + " " + sumQty + " " + Qt);
-						}
-					}
+					
 					//เช็คจำนวนสินค้า
 					var sum = AllStock - sumQty;
 					//alert(AllStock +"-"+ sumQty +" = "+sum);
