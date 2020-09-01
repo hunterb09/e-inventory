@@ -31,9 +31,9 @@ $result2 = mysqli_query($link, $sql);
 		$(function() {
 			$('#P_name').change(function() {
 				var P_name = document.getElementById("P_name").value;
-					cP_name = P_name.length; //นับตัวอักษร
-					alert(cP_name);
-					alert(P_name);
+				cP_name = P_name.length; //นับตัวอักษร
+				//alert(cP_name);
+				//alert(P_name);
 				/*$.ajax({
 					url: "st_o_s.php",
 					data: {
@@ -103,13 +103,16 @@ $result2 = mysqli_query($link, $sql);
 
 					//เพิ่มรายการสินค้า
 					if (sum >= 0) {
-						var tr = "<tr>";
-						tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
-						tr = tr + "<td><input type='hidden' name='P_name" + rows + "' id='P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
-						tr = tr + "<td><input type='hidden' name='Qty" + rows + "' id='Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
-						//tr = tr + "<td><input type='text' name='Total"+rows+"' id='Total"+rows+"' width='10%' readonly></td>";
-						tr = tr + "</tr>";
-						$('#myTable > tbody:last').append(tr);
+						$.ajax({
+							url: "stock_out_form_indtl.php",
+							data: {
+								'P_name': P_name
+							},
+							type: "post",
+							success: function(data) {
+								$('#indtl').html(data);
+							}
+						});
 
 						//เก็บจำนวนแถว
 						$('#hdnCount').val(rows);
@@ -158,7 +161,8 @@ $result2 = mysqli_query($link, $sql);
 
 			<br>
 			จำนวน: <input type='number' name='Qty' id='Qty' min='1' size='5' required style='text-align :center'>
-			<input type="button" id="createRows" style="background-color: lightgreen" value="เพิ่ม">
+			<input type="button" id="createRows" style="background-color: lightgreen" value="ค้นหา">
+			<div align="center" id="indtl"></div>
 			<table border="1" width="80%" align="center" id="myTable">
 				<thead id="result">
 					<tr>
@@ -167,6 +171,7 @@ $result2 = mysqli_query($link, $sql);
 					<p></p>
 					<tr>
 						<td class="text-center" width="10%">ลำดับ </td>
+						<td class="text-center" width="20%">ใบรับสินค้า </td>
 						<td class="text-center" width="20%">ชื่อสินค้า </td>
 						<td class="text-center" width="10%">จำนวน </td>
 						<!--<td class="text-center" width="10%">ราคารวม </td> -->
@@ -187,8 +192,8 @@ $result2 = mysqli_query($link, $sql);
 						<td class="text-left" width="10%"><select name='Pp_name' id='Pp_name'>
 								<?php //while ($row2 = mysqli_fetch_array($result2)) { 
 								?> <?php //echo "<option value=" . $row2['Pp_name'] . " >" . $row2["Pp_name"] 
-																							?> </option><?php //} 
-																																													?>
+									?> </option><?php //} 
+																										?>
 							</select></td>-->
 						<td class="text-right" width="10%">หมายเหตุ: </td>
 						<td class="text-left" width="30%"><textarea name="Comment" id="Comment" cols="30" rows="1"></textarea></td>

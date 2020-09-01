@@ -55,10 +55,12 @@ $result1 = mysqli_query($link, $sql);
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-874" />
 	<title>Show Products</title>
 	<link rel="icon" href="picture/favicon.ico" type="image/x-icon">
+	<link href="plugins/select-me/selectMe.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/prototype.js" language="javascript" type="text/javascript"></script>
+	<script src="plugins/select-me/selectMe.js"></script>
 	<script language="javascript">
 		function Product(Div) {
 			var P_name = document.frmprice['P_name'].value;

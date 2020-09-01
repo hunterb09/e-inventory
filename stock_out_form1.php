@@ -30,8 +30,10 @@ $result2 = mysqli_query($link, $sql);
 	<script>
 		$(function() {
 			$('#P_name').change(function() {
-				var P_name = document.frmprice['P_name'].value;
-				//alert(P_name);
+				var P_name = document.getElementById("P_name").value;
+					cP_name = P_name.length; //นับตัวอักษร
+					alert(cP_name);
+					alert(P_name);
 				/*$.ajax({
 					url: "st_o_s.php",
 					data: {
@@ -165,6 +167,7 @@ $result2 = mysqli_query($link, $sql);
 					<p></p>
 					<tr>
 						<td class="text-center" width="10%">ลำดับ </td>
+						<td class="text-center" width="20%">ใบรับสินค้า </td>
 						<td class="text-center" width="20%">ชื่อสินค้า </td>
 						<td class="text-center" width="10%">จำนวน </td>
 						<!--<td class="text-center" width="10%">ราคารวม </td> -->
