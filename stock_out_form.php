@@ -112,6 +112,7 @@ $result2 = mysqli_query($link, $sql);
 			//ดึงรายการข้างบน ไปล่าง
 			var rows = 1;
 			$("#newRows").click(function() {
+				var nn = 1; //เทส
 				var t = "";
 				$(':checkbox:checked').each(function() {
 					t += $(this).val() + "\n";
@@ -119,7 +120,7 @@ $result2 = mysqli_query($link, $sql);
 				alert(t);
 				var P_name = document.frmprice['P_name'].value;
 				var AllStock = document.frmprice['AllStock'].value;
-				var Qty = document.frmprice['Qty'].value;
+				var Qty = document.frmprice['sQty'+ nn].value;
 				if (P_name.trim() == "") {
 					alert("กรุณากรอกชื่อ");
 					AllStock = -1;
@@ -134,7 +135,7 @@ $result2 = mysqli_query($link, $sql);
 				if (Number.isInteger(floatQty)) {
 					//alert("จำนวนเต็ม" + floatQty);
 
-					//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่จะเพิ่ม)
+					//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่เพิ่มไปแล้ว)
 					var sumQty = parseInt(Qty);
 					for (i = 1; i < rows; i++) {
 						var Pn = document.frmprice['P_name' + i].value;

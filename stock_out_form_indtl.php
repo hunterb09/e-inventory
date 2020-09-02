@@ -43,7 +43,7 @@
           echo "<td>" .$row["St_serial"] .  "</td> ";
           echo "<td>" .$data.  "</td> ";
           echo "<td>" .$row1["Unit_name"] .  "</td> ";
-          echo '<td> <input type="text" name="qty'.$i.'" value="'.$row["Qty"] .'" readonly></td> ';
+          echo '<td> <input type="text" name="sQty'.$i.'" id="sQty'.$i.'" value="'.$row["Qty"] .'" readonly size="2"></td> ';
           echo "<td>" .$row["Price"] .  "</td> ";
       echo "</tr>";
       $i++;
