@@ -13,7 +13,8 @@
     $row0 = mysqli_fetch_array($result0);
     $P_id = $row0["P_id"];
     //echo "<br> ไอดี ".$P_id;
-    echo "<table border='1' width='80%'><tr align='center' bgcolor='#CCCCCC'>
+    echo "<form name='indtl'><table border='1' width='80%'><tr align='center' bgcolor='#CCCCCC'>
+    <th width='5%'>เลือก </th>
     <th width='10%'>ลำดับ </th>
     <th width='10%'>เลขใบรับ </th>
     <th width='5%'>ชื่อสินค้า </th>
@@ -29,7 +30,7 @@
     //$row = mysqli_fetch_array($result);
     //$St_serial = $row["St_serial"];
     //echo "<tr align='center'><td> $St_serial </td></tr>";
-	
+  $i = 1;
 	while($row = mysqli_fetch_array($result)) {
         // ดึงชื่อหน่วย
         $unit = $row["Unit_id"];
@@ -37,15 +38,17 @@
         $result1 = mysqli_query($link, $sql1);
         $row1 = mysqli_fetch_array($result1);
       echo "<tr align='center'>";
+          echo '<td> <input type="checkbox" name="indtl'.$i.'" value="'.$row["St_indtl"] .'"> </td> ';
           echo "<td>" .$row["St_indtl"] .  "</td> ";
           echo "<td>" .$row["St_serial"] .  "</td> ";
           echo "<td>" .$data.  "</td> ";
           echo "<td>" .$row1["Unit_name"] .  "</td> ";
-          echo "<td>" .$row["Qty"] .  "</td> ";
+          echo '<td> <input type="text" name="qty'.$i.'" value="'.$row["Qty"] .'" readonly></td> ';
           echo "<td>" .$row["Price"] .  "</td> ";
       echo "</tr>";
+      $i++;
     }
-    echo "</tr></table>";
+    echo '</tr></table></form>';
 
 ?>
     

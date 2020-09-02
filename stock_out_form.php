@@ -63,8 +63,6 @@ $result2 = mysqli_query($link, $sql);
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-
-			var rows = 1;
 			$("#createRows").click(function() {
 				var P_name = document.frmprice['P_name'].value;
 				var AllStock = document.frmprice['AllStock'].value;
@@ -86,7 +84,7 @@ $result2 = mysqli_query($link, $sql);
 
 					//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่จะเพิ่ม)
 					var sumQty = parseInt(Qty);
-					
+
 					//เช็คจำนวนสินค้า
 					var sum = AllStock - sumQty;
 					//alert(AllStock +"-"+ sumQty +" = "+sum);
@@ -103,6 +101,66 @@ $result2 = mysqli_query($link, $sql);
 								$('#indtl').html(data);
 							}
 						});
+					} else {
+						alert("สินค้าในสต๊อกมีไม่พอ");
+					}
+				} else {
+					alert("กรุณากรอกเลขจำนวนเต็ม");
+				}
+
+			});
+			//ดึงรายการข้างบน ไปล่าง
+			var rows = 1;
+			$("#newRows").click(function() {
+				var t = "";
+				$(':checkbox:checked').each(function() {
+					t += $(this).val() + "\n";
+				});
+				alert(t);
+				var P_name = document.frmprice['P_name'].value;
+				var AllStock = document.frmprice['AllStock'].value;
+				var Qty = document.frmprice['Qty'].value;
+				if (P_name.trim() == "") {
+					alert("กรุณากรอกชื่อ");
+					AllStock = -1;
+				}
+				if (Qty.trim() == "") {
+					alert("กรุณากรอกจำนวน");
+					AllStock = -1;
+				}
+				//สตริง > ตัวเลขทศนิยม
+				var floatQty = parseFloat(Qty);
+
+				if (Number.isInteger(floatQty)) {
+					//alert("จำนวนเต็ม" + floatQty);
+
+					//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่จะเพิ่ม)
+					var sumQty = parseInt(Qty);
+					for (i = 1; i < rows; i++) {
+						var Pn = document.frmprice['P_name' + i].value;
+						var strQt = document.frmprice['Qty' + i].value;
+						var Qty = parseInt(Qty);
+						var Qt = parseInt(strQt);
+						if (Pn == P_name) {
+							//alert(sumQty + Qt);
+							sumQty += Qt;
+							//alert(Pn + " " + sumQty + " " + Qt);
+						}
+					}
+					//เช็คจำนวนสินค้า
+					var sum = AllStock - sumQty;
+					//alert(AllStock +"-"+ sumQty +" = "+sum);
+
+					//เพิ่มรายการสินค้า
+					if (sum >= 0) {
+						var tr = "<tr>";
+						tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
+						tr = tr + "<td><input type='hidden' name='St_indtl" + rows + "' id='St_indtl" + rows + "' value='" + t + "' >" + t + "</td>";
+						tr = tr + "<td><input type='hidden' name='P_name" + rows + "' id='P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
+						tr = tr + "<td><input type='hidden' name='Qty" + rows + "' id='Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
+						//tr = tr + "<td><input type='text' name='Total"+rows+"' id='Total"+rows+"' width='10%' readonly></td>";
+						tr = tr + "</tr>";
+						$('#myTable > tbody:last').append(tr);
 
 						//เก็บจำนวนแถว
 						$('#hdnCount').val(rows);
@@ -116,7 +174,6 @@ $result2 = mysqli_query($link, $sql);
 				}
 
 			});
-
 		});
 	</script>
 	<script>
@@ -151,8 +208,9 @@ $result2 = mysqli_query($link, $sql);
 
 			<br>
 			จำนวน: <input type='number' name='Qty' id='Qty' min='1' size='5' required style='text-align :center'>
-			<input type="button" id="createRows" style="background-color: lightgreen" value="ค้นหา">
+			<input type="button" id="createRows" style="background-color: orange" value="ค้นหา">
 			<div align="center" id="indtl"></div>
+			<br><input type="button" id="newRows" style="background-color: lightgreen" value="เพิ่ม">
 			<table border="1" width="80%" align="center" id="myTable">
 				<thead id="result">
 					<tr>
