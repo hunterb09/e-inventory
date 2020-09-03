@@ -112,66 +112,75 @@ $result2 = mysqli_query($link, $sql);
 			//ดึงรายการข้างบน ไปล่าง
 			var rows = 1;
 			$("#newRows").click(function() {
-				var nn = 1; //เทส
+
 				var t = "";
 				$(':checkbox:checked').each(function() {
-					t += $(this).val() + "\n";
+					t += $(this).val() + ", ";
 				});
-				alert(t);
-				var P_name = document.frmprice['P_name'].value;
-				var AllStock = document.frmprice['AllStock'].value;
-				var Qty = document.frmprice['sQty'+ nn].value;
-				if (P_name.trim() == "") {
-					alert("กรุณากรอกชื่อ");
-					AllStock = -1;
-				}
-				if (Qty.trim() == "") {
-					alert("กรุณากรอกจำนวน");
-					AllStock = -1;
-				}
-				//สตริง > ตัวเลขทศนิยม
-				var floatQty = parseFloat(Qty);
+				//alert(t);
+				//ทำเป็นอาร์เรย์
+				var new_t = t.split(", ");
+				new_t.pop();
+				var x = 0; //เทส-
+				while (x < new_t.length){
+					alert(new_t[x]);
+					var P_name = document.frmprice['P_name'].value;
+					var AllStock = document.frmprice['AllStock'].value;
+					var Qty = document.frmprice['sQty'+ x].value;
+					if (P_name.trim() == "") {
+						alert("กรุณากรอกชื่อ");
+						AllStock = -1;
+					}
+					if (Qty.trim() == "") {
+						alert("กรุณากรอกจำนวน");
+						AllStock = -1;
+					}
+					//สตริง > ตัวเลขทศนิยม
+					var floatQty = parseFloat(Qty);
 
-				if (Number.isInteger(floatQty)) {
-					//alert("จำนวนเต็ม" + floatQty);
+					if (Number.isInteger(floatQty)) {
+						//alert("จำนวนเต็ม" + floatQty);
 
-					//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่เพิ่มไปแล้ว)
-					var sumQty = parseInt(Qty);
-					for (i = 1; i < rows; i++) {
-						var Pn = document.frmprice['P_name' + i].value;
-						var strQt = document.frmprice['Qty' + i].value;
-						var Qty = parseInt(Qty);
-						var Qt = parseInt(strQt);
-						if (Pn == P_name) {
-							//alert(sumQty + Qt);
-							sumQty += Qt;
-							//alert(Pn + " " + sumQty + " " + Qt);
+						//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่เพิ่มไปแล้ว)
+						var sumQty = parseInt(Qty);
+						for (i = 1; i < rows; i++) {
+							var Pn = document.frmprice['P_name' + i].value;
+							var strQt = document.frmprice['Qty' + i].value;
+							var Qty = parseInt(Qty);
+							var Qt = parseInt(strQt);
+							if (Pn == P_name) {
+								//alert(sumQty + Qt);
+								sumQty += Qt;
+								//alert(Pn + " " + sumQty + " " + Qt);
+							}
 						}
-					}
-					//เช็คจำนวนสินค้า
-					var sum = AllStock - sumQty;
-					//alert(AllStock +"-"+ sumQty +" = "+sum);
+						//เช็คจำนวนสินค้า
+						var sum = AllStock - sumQty;
+						//alert(AllStock +"-"+ sumQty +" = "+sum);
 
-					//เพิ่มรายการสินค้า
-					if (sum >= 0) {
-						var tr = "<tr>";
-						tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
-						tr = tr + "<td><input type='hidden' name='St_indtl" + rows + "' id='St_indtl" + rows + "' value='" + t + "' >" + t + "</td>";
-						tr = tr + "<td><input type='hidden' name='P_name" + rows + "' id='P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
-						tr = tr + "<td><input type='hidden' name='Qty" + rows + "' id='Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
-						//tr = tr + "<td><input type='text' name='Total"+rows+"' id='Total"+rows+"' width='10%' readonly></td>";
-						tr = tr + "</tr>";
-						$('#myTable > tbody:last').append(tr);
 
-						//เก็บจำนวนแถว
-						$('#hdnCount').val(rows);
+						//เพิ่มรายการสินค้า
+						if (sum >= 0) {
+							var tr = "<tr>";
+							tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
+							tr = tr + "<td><input type='hidden' name='St_indtl" + rows + "' id='St_indtl" + rows + "' value='" + new_t[x] + "' >" + new_t[x] + "</td>";
+							tr = tr + "<td><input type='hidden' name='P_name" + rows + "' id='P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
+							tr = tr + "<td><input type='hidden' name='Qty" + rows + "' id='Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
+							//tr = tr + "<td><input type='text' name='Total"+rows+"' id='Total"+rows+"' width='10%' readonly></td>";
+							tr = tr + "</tr>";
+							$('#myTable > tbody:last').append(tr);
 
-						rows = rows + 1;
+							//เก็บจำนวนแถว
+							$('#hdnCount').val(rows);
+
+							rows = rows + 1;
+						} else {
+							alert("สินค้าในสต๊อกมีไม่พอ");
+						}
 					} else {
-						alert("สินค้าในสต๊อกมีไม่พอ");
+						alert("กรุณากรอกเลขจำนวนเต็ม");
 					}
-				} else {
-					alert("กรุณากรอกเลขจำนวนเต็ม");
+				x++;
 				}
 
 			});

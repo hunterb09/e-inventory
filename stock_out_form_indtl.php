@@ -30,7 +30,7 @@
     //$row = mysqli_fetch_array($result);
     //$St_serial = $row["St_serial"];
     //echo "<tr align='center'><td> $St_serial </td></tr>";
-  $i = 1;
+  $i = 0;
 	while($row = mysqli_fetch_array($result)) {
         // ดึงชื่อหน่วย
         $unit = $row["Unit_id"];
@@ -38,7 +38,7 @@
         $result1 = mysqli_query($link, $sql1);
         $row1 = mysqli_fetch_array($result1);
       echo "<tr align='center'>";
-          echo '<td> <input type="checkbox" name="indtl'.$i.'" value="'.$row["St_indtl"] .'"> </td> ';
+          echo '<td> <input type="checkbox" name="indtl'.$i.'" value="'.$row["St_serial"] .'"> </td> ';
           echo "<td>" .$row["St_indtl"] .  "</td> ";
           echo "<td>" .$row["St_serial"] .  "</td> ";
           echo "<td>" .$data.  "</td> ";
