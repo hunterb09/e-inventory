@@ -20,6 +20,7 @@
     <th width='5%'>ชื่อสินค้า </th>
     <th width='5%'>ชื่อหน่วย </th>
     <th width='5%'>จำนวน </th>
+    <th width='5%'>จำนวนเบิก </th>
     <th width='5%'>ราคา </th>
   </tr>";
   
@@ -38,13 +39,14 @@
         $result1 = mysqli_query($link, $sql1);
         $row1 = mysqli_fetch_array($result1);
       echo "<tr align='center'>";
-          echo '<td> <input type="checkbox" name="indtl'.$i.'" value="'.$row["St_serial"] .'"> </td> ';
+          echo '<td> <input type="checkbox" name="indtl'.$i.'" value="'.$i.'"> </td> ';
           echo "<td>" .$row["St_indtl"] .  "</td> ";
-          echo "<td>" .$row["St_serial"] .  "</td> ";
+          echo '<td> <input type="text" name="St_serial'.$i.'" id="St_serial'.$i.'" value="'.$row["St_serial"] .'" readonly style="background-color: #DCDCDC" size="8"></td> ';
           echo "<td>" .$data.  "</td> ";
           echo "<td>" .$row1["Unit_name"] .  "</td> ";
-          echo '<td> <input type="text" name="sQty'.$i.'" id="sQty'.$i.'" value="'.$row["Qty"] .'" readonly size="2"></td> ';
-          echo "<td>" .$row["Price"] .  "</td> ";
+          echo '<td> <input type="text" name="oldQty'.$i.'" id="oldQty'.$i.'" value="'.$row["Qty"] .'"readonly style="background-color: #DCDCDC" size="3"></td> ';
+          echo '<td> <input type="number" name="sQty'.$i.'" id="sQty'.$i.'" value="'.$row["Qty"] .'" min="1" max="'.$row["Qty"] .'" size="2"></td> ';
+          echo '<td> <input type="text" name="Price'.$i.'" id="Price'.$i.'" value="'.$row["Price"] .'" readonly style="background-color: #DCDCDC" size="3"></td> ';
       echo "</tr>";
       $i++;
     }

@@ -70,12 +70,12 @@ $sb = substr($St_serial, 0, 10); //เลือกตัวเลข
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-
+			
 			var rows = 1;
 			$("#createRows").click(function() {
 				var tr = "<tr>";
 				tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
-				tr = tr + "<td><select name='P_name" + rows + "' id='P_name" + rows + "' ><?php while ($row1 = mysqli_fetch_array($result1)) { ?> <?php echo "<option value=" . $row1['P_name'] . " >" . $row1["P_name"] ?> </option><?php } ?></select></td>";
+				tr = tr + "<td><select name='P_name" + rows + "' id='P_name" + rows + "' ><option value=''>เลือกชื่อ</option><?php while ($row1 = mysqli_fetch_array($result1)) { ?> <option value='<?php echo $row1["P_name"] ?>'> <?php echo $row1["P_name"] ?></option><?php } ?></select></td>";
 				tr = tr + "<td><select name='Unit_name" + rows + "' id='Unit_name" + rows + "' ><?php while ($row2 = mysqli_fetch_array($result2)) { ?><?php echo "<option value=" . $row2['Unit_name'] . " >" . $row2["Unit_name"] ?> </option><?php } ?></select></td>";
 				tr = tr + "<td><input type='number' name='Qty" + rows + "' id='Qty" + rows + "' min='1' size='5' required style='text-align :center' onkeyup='fncSum()'></td>";
 				tr = tr + "<td><input type='number' name='Price" + rows + "' id='Price" + rows + "' min='0' size='8' required onkeyup='fncSum()'></td>";

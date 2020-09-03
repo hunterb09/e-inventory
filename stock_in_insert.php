@@ -41,6 +41,6 @@
                 $result3 = mysqli_query($link,$sql3);
                 
         }
-        echo "<script type='text/javascript'>alert('บันทึกสำเร็จ'+$St_serial);
+        echo "<script type='text/javascript'>alert('บันทึกสำเร็จ');
 		window.location = 'stock_in_fb.php'; </script>";
 ?>

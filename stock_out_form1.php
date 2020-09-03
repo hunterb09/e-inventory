@@ -29,11 +29,19 @@ $result2 = mysqli_query($link, $sql);
 	<script src="js/jquery-form.min.js"> </script>
 	<script>
 		$(function() {
-			$('#P_name').change(function() {
+			//แสดงแถบค้นหาชื่อ
+			$('#P_name').selectMe({
+					width: '400px',
+					columnCount: 2, //จำนวนคอลัมน์
+					search: true //แสดงช่องค้นหาหรือไม่
+				});
+			$('#show_Stock').click(function() {
+				var textP = $('#P_name').val();
+				alert(textP);
 				var P_name = document.getElementById("P_name").value;
-					cP_name = P_name.length; //นับตัวอักษร
-					alert(cP_name);
-					alert(P_name);
+				cP_name = P_name.length; //นับตัวอักษร
+				//alert(cP_name);
+				alert(P_name);
 				/*$.ajax({
 					url: "st_o_s.php",
 					data: {
@@ -63,8 +71,6 @@ $result2 = mysqli_query($link, $sql);
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-
-			var rows = 1;
 			$("#createRows").click(function() {
 				var P_name = document.frmprice['P_name'].value;
 				var AllStock = document.frmprice['AllStock'].value;
@@ -86,35 +92,23 @@ $result2 = mysqli_query($link, $sql);
 
 					//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่จะเพิ่ม)
 					var sumQty = parseInt(Qty);
-					for (i = 1; i < rows; i++) {
-						var Pn = document.frmprice['P_name' + i].value;
-						var strQt = document.frmprice['Qty' + i].value;
-						var Qty = parseInt(Qty);
-						var Qt = parseInt(strQt);
-						if (Pn == P_name) {
-							//alert(sumQty + Qt);
-							sumQty += Qt;
-							//alert(Pn + " " + sumQty + " " + Qt);
-						}
-					}
+
 					//เช็คจำนวนสินค้า
 					var sum = AllStock - sumQty;
 					//alert(AllStock +"-"+ sumQty +" = "+sum);
 
 					//เพิ่มรายการสินค้า
 					if (sum >= 0) {
-						var tr = "<tr>";
-						tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
-						tr = tr + "<td><input type='hidden' name='P_name" + rows + "' id='P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
-						tr = tr + "<td><input type='hidden' name='Qty" + rows + "' id='Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
-						//tr = tr + "<td><input type='text' name='Total"+rows+"' id='Total"+rows+"' width='10%' readonly></td>";
-						tr = tr + "</tr>";
-						$('#myTable > tbody:last').append(tr);
-
-						//เก็บจำนวนแถว
-						$('#hdnCount').val(rows);
-
-						rows = rows + 1;
+						$.ajax({
+							url: "stock_out_form_indtl.php",
+							data: {
+								'P_name': P_name
+							},
+							type: "post",
+							success: function(data) {
+								$('#indtl').html(data);
+							}
+						});
 					} else {
 						alert("สินค้าในสต๊อกมีไม่พอ");
 					}
@@ -123,7 +117,82 @@ $result2 = mysqli_query($link, $sql);
 				}
 
 			});
+			//ดึงรายการข้างบน ไปล่าง
+			var rows = 1;
+			$("#newRows").click(function() {
 
+				var t = "";
+				$(':checkbox:checked').each(function() {
+					t += $(this).val() + ", ";
+				});
+				//alert(t);
+				//ทำเป็นอาร์เรย์
+				var new_t = t.split(", ");
+				new_t.pop();
+				var x = 0; //เทส-
+				while (x < new_t.length) {
+					//alert(new_t[x]);
+					var P_name = document.frmprice['P_name'].value;
+					var AllStock = document.frmprice['AllStock'].value;
+					var St_serial = document.frmprice['St_serial' + new_t[x]].value;
+					var Qty = document.frmprice['sQty' + new_t[x]].value;
+					var Price = document.frmprice['Price' + new_t[x]].value;
+					if (P_name.trim() == "") {
+						alert("กรุณากรอกชื่อ");
+						AllStock = -1;
+					}
+					if (Qty.trim() == "") {
+						alert("กรุณากรอกจำนวน");
+						AllStock = -1;
+					}
+					//สตริง > ตัวเลขทศนิยม
+					var floatQty = parseFloat(Qty);
+
+					if (Number.isInteger(floatQty)) {
+						//alert("จำนวนเต็ม" + floatQty);
+
+						//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่เพิ่มไปแล้ว)
+						var sumQty = parseInt(Qty);
+						for (i = 1; i < rows; i++) {
+							var Pn = document.frmprice['P_name' + i].value;
+							var strQt = document.frmprice['Qty' + i].value;
+							var Qty = parseInt(Qty);
+							var Qt = parseInt(strQt);
+							if (Pn == P_name) {
+								//alert(sumQty + Qt);
+								sumQty += Qt;
+								//alert(Pn + " " + sumQty + " " + Qt);
+							}
+						}
+						//เช็คจำนวนสินค้า
+						var sum = AllStock - sumQty;
+						//alert(AllStock +"-"+ sumQty +" = "+sum);
+
+
+						//เพิ่มรายการสินค้า
+						if (sum >= 0) {
+							var tr = "<tr>";
+							tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
+							tr = tr + "<td><input type='hidden' name='St_indtl" + rows + "' id='St_indtl" + rows + "' value='" + St_serial + "' >" + St_serial + "</td>";
+							tr = tr + "<td><input type='hidden' name='P_name" + rows + "' id='P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
+							tr = tr + "<td><input type='hidden' name='Qty" + rows + "' id='Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
+							tr = tr + "<td><input type='hidden' name='Price" + rows + "' id='Price" + rows + "' value='" + Price + "' >" + Price + "</td>";
+							$('#myTable > tbody:last').append(tr);
+
+							//เก็บจำนวนแถว
+							$('#hdnCount').val(rows);
+
+							rows = rows + 1;
+						} else {
+							alert("สินค้าในสต๊อกมีไม่พอ");
+						}
+					} else {
+						alert("กรุณากรอกเลขจำนวนเต็ม");
+					}
+					x++;
+				}
+
+			});
 		});
 	</script>
 	<script>
@@ -146,19 +215,23 @@ $result2 = mysqli_query($link, $sql);
 				<tbody>
 					<tr>
 						<td class="text-right" width="20%">สินค้า: </td>
-						<td class="text-left" width="10%"><select name='P_name' id='P_name'>
-								<option></option>
-								<?php while ($row3 = mysqli_fetch_array($result3)) { ?> <?php echo "<option value=" . $row3['P_name'] . " >" . $row3["P_name"] ?> </option><?php } ?>
+						<td class="text-left" width="10%">
+							<select name='P_name' id='P_name'>
+								<?php while ($row3 = mysqli_fetch_array($result3)) { ?>
+									<option value="<?php echo $row3["P_name"] ?>"> <?php echo $row3["P_name"] ?> </option>
+								<?php } ?>
 							</select></td>
 						<td class="text-right" width="10%">สินค้าในสต๊อก: </td>
-						<td class="text-left" width="30%"><input type="text" name="AllStock" id="AllStock" readonly style="background-color: lightblue"></td>
+						<td class="text-left" width="30%"><input type="text" name="AllStock" id="AllStock" readonly style="background-color: lightblue"><input type="button" id="show_Stock" style="background-color: orange" value="ค้นหา"></td>
 					</tr>
 				</tbody>
 			</table>
 
 			<br>
 			จำนวน: <input type='number' name='Qty' id='Qty' min='1' size='5' required style='text-align :center'>
-			<input type="button" id="createRows" style="background-color: lightgreen" value="เพิ่ม">
+			<input type="button" id="createRows" style="background-color: orange" value="ค้นหา">
+			<div align="center" id="indtl"></div>
+			<br><input type="button" id="newRows" style="background-color: lightgreen" value="เพิ่ม">
 			<table border="1" width="80%" align="center" id="myTable">
 				<thead id="result">
 					<tr>
@@ -170,7 +243,7 @@ $result2 = mysqli_query($link, $sql);
 						<td class="text-center" width="20%">ใบรับสินค้า </td>
 						<td class="text-center" width="20%">ชื่อสินค้า </td>
 						<td class="text-center" width="10%">จำนวน </td>
-						<!--<td class="text-center" width="10%">ราคารวม </td> -->
+						<td class="text-center" width="10%">ราคา </td>
 					</tr>
 				</thead>
 				<!-- body dynamic rows -->
@@ -188,8 +261,8 @@ $result2 = mysqli_query($link, $sql);
 						<td class="text-left" width="10%"><select name='Pp_name' id='Pp_name'>
 								<?php //while ($row2 = mysqli_fetch_array($result2)) { 
 								?> <?php //echo "<option value=" . $row2['Pp_name'] . " >" . $row2["Pp_name"] 
-																							?> </option><?php //} 
-																																													?>
+									?> </option><?php //} 
+												?>
 							</select></td>-->
 						<td class="text-right" width="10%">หมายเหตุ: </td>
 						<td class="text-left" width="30%"><textarea name="Comment" id="Comment" cols="30" rows="1"></textarea></td>

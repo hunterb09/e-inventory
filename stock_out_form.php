@@ -30,6 +30,8 @@ $result2 = mysqli_query($link, $sql);
 	<script>
 		$(function() {
 			$('#P_name').change(function() {
+				var textP = $('#P_name').val();
+				//alert(textP);
 				var P_name = document.getElementById("P_name").value;
 				cP_name = P_name.length; //นับตัวอักษร
 				//alert(cP_name);
@@ -52,7 +54,7 @@ $result2 = mysqli_query($link, $sql);
 				});
 			});
 		});
-		
+
 		function showTpirce(result) {
 			$("#msg").html(result);
 		}
@@ -122,11 +124,13 @@ $result2 = mysqli_query($link, $sql);
 				var new_t = t.split(", ");
 				new_t.pop();
 				var x = 0; //เทส-
-				while (x < new_t.length){
-					alert(new_t[x]);
+				while (x < new_t.length) {
+					//alert(new_t[x]);
 					var P_name = document.frmprice['P_name'].value;
 					var AllStock = document.frmprice['AllStock'].value;
-					var Qty = document.frmprice['sQty'+ x].value;
+					var St_serial = document.frmprice['St_serial' + new_t[x]].value;
+					var Qty = document.frmprice['sQty' + new_t[x]].value;
+					var Price = document.frmprice['Price' + new_t[x]].value;
 					if (P_name.trim() == "") {
 						alert("กรุณากรอกชื่อ");
 						AllStock = -1;
@@ -163,11 +167,10 @@ $result2 = mysqli_query($link, $sql);
 						if (sum >= 0) {
 							var tr = "<tr>";
 							tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
-							tr = tr + "<td><input type='hidden' name='St_indtl" + rows + "' id='St_indtl" + rows + "' value='" + new_t[x] + "' >" + new_t[x] + "</td>";
+							tr = tr + "<td><input type='hidden' name='St_indtl" + rows + "' id='St_indtl" + rows + "' value='" + St_serial + "' >" + St_serial + "</td>";
 							tr = tr + "<td><input type='hidden' name='P_name" + rows + "' id='P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
 							tr = tr + "<td><input type='hidden' name='Qty" + rows + "' id='Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
-							//tr = tr + "<td><input type='text' name='Total"+rows+"' id='Total"+rows+"' width='10%' readonly></td>";
-							tr = tr + "</tr>";
+							tr = tr + "<td><input type='hidden' name='Price" + rows + "' id='Price" + rows + "' value='" + Price + "' >" + Price + "</td>";
 							$('#myTable > tbody:last').append(tr);
 
 							//เก็บจำนวนแถว
@@ -180,7 +183,7 @@ $result2 = mysqli_query($link, $sql);
 					} else {
 						alert("กรุณากรอกเลขจำนวนเต็ม");
 					}
-				x++;
+					x++;
 				}
 
 			});
@@ -206,9 +209,12 @@ $result2 = mysqli_query($link, $sql);
 				<tbody>
 					<tr>
 						<td class="text-right" width="20%">สินค้า: </td>
-						<td class="text-left" width="10%"><select name='P_name' id='P_name'>
+						<td class="text-left" width="10%">
+							<select name='P_name' id='P_name'>
 								<option></option>
-								<?php while ($row3 = mysqli_fetch_array($result3)) { ?> <?php echo "<option value=" . $row3['P_name'] . " >" . $row3["P_name"] ?> </option><?php } ?>
+								<?php while ($row3 = mysqli_fetch_array($result3)) { ?>
+									<option> <?php echo $row3["P_name"] ?> </option>
+								<?php } ?>
 							</select></td>
 						<td class="text-right" width="10%">สินค้าในสต๊อก: </td>
 						<td class="text-left" width="30%"><input type="text" name="AllStock" id="AllStock" readonly style="background-color: lightblue"></td>
@@ -232,7 +238,7 @@ $result2 = mysqli_query($link, $sql);
 						<td class="text-center" width="20%">ใบรับสินค้า </td>
 						<td class="text-center" width="20%">ชื่อสินค้า </td>
 						<td class="text-center" width="10%">จำนวน </td>
-						<!--<td class="text-center" width="10%">ราคารวม </td> -->
+						<td class="text-center" width="10%">ราคา </td>
 					</tr>
 				</thead>
 				<!-- body dynamic rows -->
@@ -251,7 +257,7 @@ $result2 = mysqli_query($link, $sql);
 								<?php //while ($row2 = mysqli_fetch_array($result2)) { 
 								?> <?php //echo "<option value=" . $row2['Pp_name'] . " >" . $row2["Pp_name"] 
 									?> </option><?php //} 
-																										?>
+												?>
 							</select></td>-->
 						<td class="text-right" width="10%">หมายเหตุ: </td>
 						<td class="text-left" width="30%"><textarea name="Comment" id="Comment" cols="30" rows="1"></textarea></td>
