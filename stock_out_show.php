@@ -5,7 +5,7 @@ include("table.css");
 //1. เชื่อมต่อ database:
 require("connection.php");
 
-$sql = "SELECT * FROM stock_outmts ORDER BY Rec_date desc" or die("Error:" . mysqli_error());
+$sql = "SELECT * FROM stock_outmst ORDER BY Rec_date desc";
 $result = page_query($link, $sql, 10);
 
 

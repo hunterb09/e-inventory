@@ -83,13 +83,24 @@ $result2 = mysqli_query($link, $sql);
 					//alert(new_t[x]);
 					var P_name = document.frmprice['P_name'].value;
 					var AllStock = document.frmprice['AllStock'].value;
+					var St_indtl = document.frmprice['St_indtl' + new_t[x]].value;
 					var St_serial = document.frmprice['St_serial' + new_t[x]].value;
+					var Unit_name = document.frmprice['Unit_name' + new_t[x]].value;
+					alert(Unit_name);
 					var oldQty = document.frmprice['oldQty' + new_t[x]].value;
 					var Qty = document.frmprice['sQty' + new_t[x]].value;
 					var Price = document.frmprice['Price' + new_t[x]].value;
 					var checkoldQty = parseInt(oldQty);
 					var checkQty = parseInt(Qty);
 					//alert(checkoldQty +" และ "+ checkQty);
+					for (let j = 1; j < rows; j++) { //ลูป2เช็คค่าซ้ำ
+					let St_indtlJ = $('#2St_indtl' + j).val();
+					//alert("เข้าลูปfor2" + P_nameJ);
+						if (St_indtl == St_indtlJ) {
+							alert("เคยเลือกสินค้า "+ P_name + " ในเลขใบรับ "+St_serial+" แล้ว");
+							AllStock = -1;
+						}
+					}
 					if (P_name.trim() == "") {
 						alert("กรุณากรอกชื่อ");
 						AllStock = -1;
@@ -105,35 +116,18 @@ $result2 = mysqli_query($link, $sql);
 					//สตริง > ตัวเลขทศนิยม
 					var floatQty = parseFloat(Qty);
 
-					if ((Number.isInteger(floatQty)) && (floatQty > 1) ){
+					if ((Number.isInteger(floatQty)) && (floatQty > 0) ){
 						//alert("จำนวนเต็ม" + floatQty);
 
-						//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่เพิ่มไปแล้ว)
-						var sumQty = parseInt(Qty);
-						for (i = 1; i < rows; i++) {
-							var Pn = document.frmprice['P_name' + i].value;
-							var strQt = document.frmprice['Qty' + i].value;
-							var Qty = parseInt(Qty);
-							var Qt = parseInt(strQt);
-							if (Pn == P_name) {
-								//alert(sumQty + Qt);
-								sumQty += Qt;
-								//alert(Pn + " " + sumQty + " " + Qt);
-							}
-						}
-						//เช็คจำนวนสินค้า
-						var sum = AllStock - sumQty;
-						//alert(AllStock +"-"+ sumQty +" = "+sum);
-
-
 						//เพิ่มรายการสินค้า
-						if (sum >= 0) {
+						if (AllStock > 0) {
 							var tr = "<tr>";
-							tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
-							tr = tr + "<td><input type='hidden' name='St_indtl" + rows + "' id='St_indtl" + rows + "' value='" + St_serial + "' >" + St_serial + "</td>";
-							tr = tr + "<td><input type='hidden' name='P_name" + rows + "' id='P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
+							tr = tr + "<td><input type='hidden' name='2St_no" + rows + "' id='2St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
+							tr = tr + "<td><input type='hidden' name='2St_indtl" + rows + "' id='2St_indtl" + rows + "' value='" + St_indtl + "' ><input type='hidden' name='2St_serial" + rows + "' id='2St_serial" + rows + "' value='" + St_serial + "' >" + St_serial + "</td>";
+							tr = tr + "<td><input type='hidden' name='2P_name" + rows + "' id='2P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
+							tr = tr + "<td><input type='hidden' name='2Unit_name" + rows + "' id='2Unit_name" + rows + "' value='" + Unit_name + "' >" + Unit_name + "</td>";
 							tr = tr + "<td><input type='hidden' name='Qty" + rows + "' id='Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
-							tr = tr + "<td><input type='hidden' name='Price" + rows + "' id='Price" + rows + "' value='" + Price + "' >" + Price + "</td>";
+							tr = tr + "<td><input type='hidden' name='2Price" + rows + "' id='2Price" + rows + "' value='" + Price + "' >" + Price + "</td>";
 							$('#myTable > tbody:last').append(tr);
 
 							//เก็บจำนวนแถว
@@ -198,6 +192,7 @@ $result2 = mysqli_query($link, $sql);
 						<td class="text-center" width="10%">ลำดับ </td>
 						<td class="text-center" width="20%">ใบรับสินค้า </td>
 						<td class="text-center" width="20%">ชื่อสินค้า </td>
+						<td class="text-center" width="10%">หน่วย </td>
 						<td class="text-center" width="10%">จำนวน </td>
 						<td class="text-center" width="10%">ราคา </td>
 					</tr>
@@ -210,7 +205,7 @@ $result2 = mysqli_query($link, $sql);
 			<div align="center" id="msg"></div>
 			<br><br>
 			<input type="hidden" id="hdnCount" name="hdnCount">
-			<table border="0" width="80%" align="center" name="c">
+			<table border="0" width="80%" align="center">
 				<tbody>
 					<tr>
 						<!--<td class="text-right" width="20%">วัตถุประสงค์: </td>

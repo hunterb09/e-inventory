@@ -39,13 +39,13 @@
         $row1 = mysqli_fetch_array($result1);
       echo "<tr align='center'>";
           echo '<td> <input type="checkbox" name="indtl'.$i.'" value="'.$i.'"> </td> ';
-          //echo "<td>" .$row["St_indtl"] .  "</td> ";
-          echo '<td> <input type="text" name="St_serial'.$i.'" id="St_serial'.$i.'" value="'.$row["St_serial"] .'" readonly style="background-color: #DCDCDC" size="8"></td> ';
-          echo "<td>" .$data.  "</td> ";
-          echo "<td>" .$row1["Unit_name"] .  "</td> ";
-          echo '<td> <input type="text" name="oldQty'.$i.'" id="oldQty'.$i.'" value="'.$row["Qty"] .'"readonly style="background-color: #DCDCDC" size="3"></td> ';
+          echo '<td> <input type="hidden" name="St_indtl'.$i.'" id="St_indtl'.$i.'" value="'.$row["St_indtl"] .'" ';
+          echo '<td> <input type="hidden" name="St_serial'.$i.'" id="St_serial'.$i.'" value="'.$row["St_serial"] .'">'.$row["St_serial"] .'</td> ';
+          echo '<td> <input type="hidden" name="P_name'.$i.'" id="P_name'.$i.'" value="'.$data.'">'.$data.'</td> ';
+          echo '<td> <input type="hidden" name="Unit_name'.$i.'" id="Unit_name'.$i.'" value="'.$row1["Unit_name"] .'">'.$row1["Unit_name"] .'</td> ';
+          echo '<td> <input type="hidden" name="oldQty'.$i.'" id="oldQty'.$i.'" value="'.$row["Qty"] .'">'.$row["Qty"] .'</td> ';
           echo '<td> <input type="number" name="sQty'.$i.'" id="sQty'.$i.'" value="'.$row["Qty"] .'" min="1" max="'.$row["Qty"] .'" size="2"></td> ';
-          echo '<td> <input type="text" name="Price'.$i.'" id="Price'.$i.'" value="'.$row["Price"] .'" readonly style="background-color: #DCDCDC" size="3"></td> ';
+          echo '<td> <input type="hidden" name="Price'.$i.'" id="Price'.$i.'" value="'.$row["Price"] .'">'.$row["Price"] .'</td> ';
       echo "</tr>";
       $i++;
     }

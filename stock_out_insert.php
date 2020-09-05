@@ -27,13 +27,19 @@
         
         //วนลูปเพิ่มบิลสินค้า
         for ($i = 1; $i<= (int)$_POST["hdnCount"]; $i++){
-                $P_name = $_POST["P_name$i"];
+                $P_name = $_POST["2P_name$i"];
                 //แปลงจากชื่อสินค้าเป็นรหัส
                 $sql1 = "SELECT * FROM product WHERE P_name = '$P_name' ";
                 $result1 = mysqli_query($link,$sql1);
                 $row1 = mysqli_fetch_array($result1);	
                 $P_id = $row1["P_id"];
 
+                $Unit_name = $_POST["2Unit_name$i"];
+                //แปลงจากชื่อหน่วยเป็นรหัส
+                $sql2 = "SELECT * FROM unit WHERE Unit_name = '$Unit_name' ";
+                $result2 = mysqli_query($link,$sql2);
+                $row2 = mysqli_fetch_array($result2);	
+                $Unit_id = $row2["Unit_id"];
 
                 //เพิ่มรายการ stock_outdtl
                 $sql3 = "INSERT INTO stock_outdtl (Stout_serial, St_no, P_id, Qty) 
