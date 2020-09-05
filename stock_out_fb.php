@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>รับสินค้าเข้า</title>
+	<title>เบิกสินค้าออก</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

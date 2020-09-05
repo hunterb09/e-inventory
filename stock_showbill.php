@@ -169,8 +169,8 @@ $(function() {
 					while($order = mysqli_fetch_array($result0)) {
 
 						//ราคารวม
-						$sub_total = $order['Qty'] * $order['Price'];
-                        $q_total = $order['Qty'];
+						$sub_total = $order['Qty_change'] * $order['Price'];
+                        $q_total = $order['Qty_change'];
 
 						$Unit_id = $order['Unit_id'];
 						//แปลงจากรหัสเป็นชื่อหน่วย
@@ -189,7 +189,7 @@ $(function() {
 				<tr>
 					<td><?php echo $order['Rec_date']; ?></td><!-- วันที่รับ -->
                     <td><?php echo $order['St_serial']; ?></td><!-- เลขใบรับ -->			
-    				<td><?php echo $order['Qty']; ?></td><!-- จำนวน -->
+    				<td><?php echo $order['Qty_change']; ?></td><!-- จำนวน -->
     				<td><?php echo $order['Price']; ?></td><!-- ราคา -->
    					<td><?php echo number_format($sub_total); ?></td><!-- รวม -->
 					<td><?php echo $User_name; ?></td><!-- ผู้รับ -->

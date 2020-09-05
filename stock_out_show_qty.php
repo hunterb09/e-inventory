@@ -18,7 +18,7 @@
     //หายอดคงเหลือในอดีต ของสมาชิก
     //ผลรวมใบรับ
     $sql = "
-    SELECT SUM(Qty) AS Qty
+    SELECT SUM(Qty_change) AS Qty_change
     FROM stock_indtl 
     WHERE P_id = '$P_id'
     ";
@@ -35,7 +35,7 @@
     $row1 = mysqli_fetch_array($result1);
 
     //หาปริมาณในสต๊อก  (จำนวนสินค้าใบรับ - ใบเบิก)
-    $in = $row["Qty"];
+    $in = $row["Qty_change"];
     $out = $row1["Qty"];
     $in_out = $in - $out;
 

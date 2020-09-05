@@ -69,7 +69,6 @@ $result2 = mysqli_query($link, $sql);
 			//ดึงรายการข้างบน ไปล่าง
 			var rows = 1;
 			$("#newRows").click(function() {
-
 				var t = "";
 				$(':checkbox:checked').each(function() {
 					t += $(this).val() + ", ";
@@ -86,7 +85,7 @@ $result2 = mysqli_query($link, $sql);
 					var St_indtl = document.frmprice['St_indtl' + new_t[x]].value;
 					var St_serial = document.frmprice['St_serial' + new_t[x]].value;
 					var Unit_name = document.frmprice['Unit_name' + new_t[x]].value;
-					alert(Unit_name);
+					//alert(Unit_name);
 					var oldQty = document.frmprice['oldQty' + new_t[x]].value;
 					var Qty = document.frmprice['sQty' + new_t[x]].value;
 					var Price = document.frmprice['Price' + new_t[x]].value;
@@ -126,7 +125,7 @@ $result2 = mysqli_query($link, $sql);
 							tr = tr + "<td><input type='hidden' name='2St_indtl" + rows + "' id='2St_indtl" + rows + "' value='" + St_indtl + "' ><input type='hidden' name='2St_serial" + rows + "' id='2St_serial" + rows + "' value='" + St_serial + "' >" + St_serial + "</td>";
 							tr = tr + "<td><input type='hidden' name='2P_name" + rows + "' id='2P_name" + rows + "' value='" + P_name + "' >" + P_name + "</td>";
 							tr = tr + "<td><input type='hidden' name='2Unit_name" + rows + "' id='2Unit_name" + rows + "' value='" + Unit_name + "' >" + Unit_name + "</td>";
-							tr = tr + "<td><input type='hidden' name='Qty" + rows + "' id='Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
+							tr = tr + "<td><input type='hidden' name='2Qty" + rows + "' id='2Qty" + rows + "' value='" + Qty + "' >" + Qty + "</td>";
 							tr = tr + "<td><input type='hidden' name='2Price" + rows + "' id='2Price" + rows + "' value='" + Price + "' >" + Price + "</td>";
 							$('#myTable > tbody:last').append(tr);
 
@@ -205,16 +204,15 @@ $result2 = mysqli_query($link, $sql);
 			<div align="center" id="msg"></div>
 			<br><br>
 			<input type="hidden" id="hdnCount" name="hdnCount">
-			<table border="0" width="80%" align="center">
+			<table border="0" width="80%" align="center" >
 				<tbody>
 					<tr>
-						<!--<td class="text-right" width="20%">วัตถุประสงค์: </td>
+						<td class="text-right" width="20%">วัตถุประสงค์: </td>
 						<td class="text-left" width="10%"><select name='Pp_name' id='Pp_name'>
-								<?php //while ($row2 = mysqli_fetch_array($result2)) { 
-								?> <?php //echo "<option value=" . $row2['Pp_name'] . " >" . $row2["Pp_name"] 
-									?> </option><?php //} 
-												?>
-							</select></td>-->
+								<?php while ($row2 = mysqli_fetch_array($result2)) { ?> 
+									<option value='<?php echo $row2["Pp_name"] ?>'> <?php echo $row2["Pp_name"] ?></option>
+								<?php } ?>
+							</select></td>
 						<td class="text-right" width="10%">หมายเหตุ: </td>
 						<td class="text-left" width="30%"><textarea name="Comment" id="Comment" cols="30" rows="1"></textarea></td>
 					</tr>
