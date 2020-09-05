@@ -20,7 +20,7 @@ session_start();
 		function Product(Div) {
 			var P_group = document.frmprice['P_group'].value;
 			var params = "P_group=" + P_group; // +
-			alert(params);
+			//alert(params);
 			var url = "group_search_g.php"; // 
 			var Addnew = new Ajax.Updater(Div, url, {
 				method: "post",
@@ -30,7 +30,7 @@ session_start();
 		function Product2(Div) {
 			var G_name = document.frmprice2['G_name'].value;
 			var params = "G_name=" + G_name; // +
-			alert(params);
+			//alert(params);
 			var url = "group_search_gname.php"; // 
 			var Addnew = new Ajax.Updater(Div, url, {
 				method: "post",

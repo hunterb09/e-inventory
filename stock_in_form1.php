@@ -61,21 +61,29 @@ $sb = substr($St_serial, 0, 10); //เลือกตัวเลข
 	<script src="plugins/select-me/selectMe.js"></script>
 	<title>softhouse</title>
 	<script>
-		function fncSum() {
-			var Qty = document.myTable['Qty'].value;
-			var Price = document.myTable['Price'].value;
-			var sum = Qty * Price;
-			document.myTable.Total.value = sum;
-		}
+		$(function() {
+			$('#P_name1').change(function() {
+				var textP = $('#P_name1').val();
+				alert(textP);
+				var P_name = document.getElementById("P_name").value;
+				cP_name = P_name.length; //นับตัวอักษร
+				//alert(cP_name);
+				//alert(P_name);
+			});
+		});
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
-			var rows = 1;
+			var rows = 0;
 			$("#createRows").click(function() {
+				//เก็บจำนวนแถว
+				rows = rows + 1;
+				$('#hdnCount').val(rows);
+
 				var tr = "<tr>";
 				tr = tr + "<td><input type='hidden' name='St_no" + rows + "' id='St_no" + rows + "' value='" + rows + "' >" + rows + "</td>";
-				tr = tr + "<td><select name='P_name" + rows + "' id='P_name" + rows + "' ><option>เลือกชื่อ</option><?php while ($row1 = mysqli_fetch_array($result1)) { ?> <option value='<?php echo $row1["P_name"] ?>'> <?php echo $row1["P_name"] ?></option><?php } ?></select></td>";
+				tr = tr + "<td><select name='P_name" + rows + "' id='P_name" + rows + "' ><option value=''>เลือกชื่อ</option><?php while ($row1 = mysqli_fetch_array($result1)) { ?> <option value='<?php echo $row1["P_name"] ?>'> <?php echo $row1["P_name"] ?></option><?php } ?></select></td>";
 				tr = tr + "<td><select name='Unit_name" + rows + "' id='Unit_name" + rows + "' ><?php while ($row2 = mysqli_fetch_array($result2)) { ?><?php echo "<option value=" . $row2['Unit_name'] . " >" . $row2["Unit_name"] ?> </option><?php } ?></select></td>";
 				tr = tr + "<td><input type='number' name='Qty" + rows + "' id='Qty" + rows + "' min='1' size='5' required style='text-align :center' onkeyup='fncSum()'></td>";
 				tr = tr + "<td><input type='number' name='Price" + rows + "' id='Price" + rows + "' min='0' size='8' required onkeyup='fncSum()'></td>";
@@ -95,26 +103,49 @@ $sb = substr($St_serial, 0, 10); //เลือกตัวเลข
 					columnCount: 3, //จำนวนคอลัมน์
 					search: true //แสดงช่องค้นหาหรือไม่
 				});
-
-				//เก็บจำนวนแถว
-				$('#hdnCount').val(rows);
-				rows = rows + 1;
 			});
 
 			$("#deleteRows").click(function() {
-				if ($("#myTable tr").length != 1) { // ถ้า=1เด้งออกลูป
+				if ($("#myTable tbody tr").length > 0) { // ถ้า = 0 เด้งออกลูป
 					$("#myTable tr:last").remove();
 					rows = rows - 1;
+					$('#hdnCount').val(rows);
 				}
 			});
 
 			$("#clearRows").click(function() {
-				rows = 1;
+				rows = 0;
 				$('#hdnCount').val(rows);
 				$('#myTable > tbody:last').empty(); // remove all
 			});
 
 		});
+	</script>
+		<script>
+		function Validation() {
+			var noERROR = true;
+			var count = $('#hdnCount').val(); //จำนวนแถว
+			if(count == 0){
+				alert("กรุณาเพิ่มรายการสินค้า");
+				noERROR = false;
+			}
+			alert(count);
+			noERROR = false;
+			for (let num = 1; num <= count; num++) { //วนลูปชื่อสินค้าทุกแถว มาเช็คว่าซ้ำไหม
+				let P_nameAll;
+				let P_name = $('#P_name'+num).val();
+				if(P_name == P_nameAll){
+					alert("มีค่าซ้ำ");
+					noERROR = false;
+				}
+				P_nameAll = P_name;
+			}
+
+			if (noERROR == true) {
+				var form = document.getElementById("form");
+				form.submit();
+			}
+		}
 	</script>
 </head>
 
@@ -156,7 +187,7 @@ $sb = substr($St_serial, 0, 10); //เลือกตัวเลข
 					</tr>
 				</tbody>
 			</table><br>
-			<input name="btnSubmit" type="submit" value="บันทึก" /></td>
+			<input class="btn btn-primary" name="btnSubmit" type="button" value="บันทึก" onclick="Validation();" />
 		</form>
 		<br><a href='stock_in_show.php'>ย้อนกลับ </a>
 </body>

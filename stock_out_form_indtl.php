@@ -15,9 +15,8 @@
     //echo "<br> ไอดี ".$P_id;
     echo "<form name='indtl'><table border='1' width='80%'><tr align='center' bgcolor='#CCCCCC'>
     <th width='5%'>เลือก </th>
-    <th width='10%'>ลำดับ </th>
     <th width='10%'>เลขใบรับ </th>
-    <th width='5%'>ชื่อสินค้า </th>
+    <th width='10%'>ชื่อสินค้า </th>
     <th width='5%'>ชื่อหน่วย </th>
     <th width='5%'>จำนวน </th>
     <th width='5%'>จำนวนเบิก </th>
@@ -40,7 +39,7 @@
         $row1 = mysqli_fetch_array($result1);
       echo "<tr align='center'>";
           echo '<td> <input type="checkbox" name="indtl'.$i.'" value="'.$i.'"> </td> ';
-          echo "<td>" .$row["St_indtl"] .  "</td> ";
+          //echo "<td>" .$row["St_indtl"] .  "</td> ";
           echo '<td> <input type="text" name="St_serial'.$i.'" id="St_serial'.$i.'" value="'.$row["St_serial"] .'" readonly style="background-color: #DCDCDC" size="8"></td> ';
           echo "<td>" .$data.  "</td> ";
           echo "<td>" .$row1["Unit_name"] .  "</td> ";

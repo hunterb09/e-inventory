@@ -34,16 +34,6 @@ $result2 = mysqli_query($link, $sql);
 				//alert(textP);
 				var P_name = document.getElementById("P_name").value;
 				cP_name = P_name.length; //นับตัวอักษร
-				//alert(cP_name);
-				//alert(P_name);
-				/*$.ajax({
-					url: "st_o_s.php",
-					data: {
-						'P_name': P_name
-					},
-					type: "post",
-					success: showTpirce
-				}); */
 				$.ajax({
 					url: "stock_out_show_qty.php",
 					data: {
@@ -51,6 +41,17 @@ $result2 = mysqli_query($link, $sql);
 					},
 					type: "post",
 					success: showQty
+				});
+				//เพิ่มรายการสินค้า
+				$.ajax({
+					url: "stock_out_form_indtl.php",
+					data: {
+						'P_name': P_name
+					},
+					type: "post",
+					success: function(data) {
+						$('#indtl').html(data);
+					}
 				});
 			});
 		});
@@ -65,52 +66,6 @@ $result2 = mysqli_query($link, $sql);
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#createRows").click(function() {
-				var P_name = document.frmprice['P_name'].value;
-				var AllStock = document.frmprice['AllStock'].value;
-				var Qty = document.frmprice['Qty'].value;
-				//var Qty = parseInt(strQty);
-				if (P_name.trim() == "") {
-					alert("กรุณากรอกชื่อ");
-					AllStock = -1;
-				}
-				if (Qty.trim() == "") {
-					alert("กรุณากรอกจำนวน");
-					AllStock = -1;
-				}
-				//สตริง > ตัวเลขทศนิยม
-				var floatQty = parseFloat(Qty);
-
-				if (Number.isInteger(floatQty)) {
-					//alert("จำนวนเต็ม" + floatQty);
-
-					//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่จะเพิ่ม)
-					var sumQty = parseInt(Qty);
-
-					//เช็คจำนวนสินค้า
-					var sum = AllStock - sumQty;
-					//alert(AllStock +"-"+ sumQty +" = "+sum);
-
-					//เพิ่มรายการสินค้า
-					if (sum >= 0) {
-						$.ajax({
-							url: "stock_out_form_indtl.php",
-							data: {
-								'P_name': P_name
-							},
-							type: "post",
-							success: function(data) {
-								$('#indtl').html(data);
-							}
-						});
-					} else {
-						alert("สินค้าในสต๊อกมีไม่พอ");
-					}
-				} else {
-					alert("กรุณากรอกเลขจำนวนเต็ม");
-				}
-
-			});
 			//ดึงรายการข้างบน ไปล่าง
 			var rows = 1;
 			$("#newRows").click(function() {
@@ -129,20 +84,28 @@ $result2 = mysqli_query($link, $sql);
 					var P_name = document.frmprice['P_name'].value;
 					var AllStock = document.frmprice['AllStock'].value;
 					var St_serial = document.frmprice['St_serial' + new_t[x]].value;
+					var oldQty = document.frmprice['oldQty' + new_t[x]].value;
 					var Qty = document.frmprice['sQty' + new_t[x]].value;
 					var Price = document.frmprice['Price' + new_t[x]].value;
+					var checkoldQty = parseInt(oldQty);
+					var checkQty = parseInt(Qty);
+					//alert(checkoldQty +" และ "+ checkQty);
 					if (P_name.trim() == "") {
 						alert("กรุณากรอกชื่อ");
 						AllStock = -1;
 					}
-					if (Qty.trim() == "") {
-						alert("กรุณากรอกจำนวน");
+					if (checkQty > checkoldQty) {
+						alert("จำนวนเบิก > จำนวนในสต๊อก");
+						AllStock = -1;
+					}
+					if ((Qty.trim() == "") || (Qty.trim() < 1)) { //เช็คค่าว่าง และค่าตัวเลข > 0
+						alert("กรุณากรอกจำนวน เป็นตัวเลข > 0");
 						AllStock = -1;
 					}
 					//สตริง > ตัวเลขทศนิยม
 					var floatQty = parseFloat(Qty);
 
-					if (Number.isInteger(floatQty)) {
+					if ((Number.isInteger(floatQty)) && (floatQty > 1) ){
 						//alert("จำนวนเต็ม" + floatQty);
 
 						//วนลูปหาจำนวนสินค้าในหน้าเบิก (สินค้าที่เพิ่มไปแล้ว)
@@ -223,8 +186,6 @@ $result2 = mysqli_query($link, $sql);
 			</table>
 
 			<br>
-			จำนวน: <input type='number' name='Qty' id='Qty' min='1' size='5' required style='text-align :center'>
-			<input type="button" id="createRows" style="background-color: orange" value="ค้นหา">
 			<div align="center" id="indtl"></div>
 			<br><input type="button" id="newRows" style="background-color: lightgreen" value="เพิ่ม">
 			<table border="1" width="80%" align="center" id="myTable">

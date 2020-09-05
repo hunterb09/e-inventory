@@ -136,9 +136,15 @@ $(function() {
         $P_id = mysqli_real_escape_string($link,$_GET['P_id']);
 
 		//เลือกหมายเลขซีเรียล วันที่รับ รหัสผู้รับ ท้ายสุด
-		$sql0 = "SELECT * FROM stock_indtl WHERE P_id = '$P_id' ";
-		$result0 = mysqli_query($link,$sql0);
-        
+		//$sql0 = "SELECT * FROM stock_indtl WHERE P_id = '$P_id' ";
+		//$result0 = mysqli_query($link,$sql0);
+        //เชื่อม 3ตาราง
+		$sql0 = "SELECT stock_indtl.*, stock_inmst.St_serial, stock_inmst.Rec_date, stock_inmst.User_id
+			FROM stock_indtl LEFT JOIN stock_inmst
+		    ON stock_indtl.St_serial = stock_inmst.St_serial
+		    WHERE stock_indtl.P_id = '$P_id'";
+		$result0 = mysqli_query($link, $sql0);
+
         //รหัสสินค้าเป็นชื่อ
         $sql = "SELECT * FROM product WHERE P_id = '$P_id' ";
 		$result = mysqli_query($link,$sql);
@@ -146,45 +152,54 @@ $(function() {
         $P_name = $row["P_name"];
 		echo "<h5>สินค้า: " .$P_id. "</h5>";	
         echo "<h5>ชื่อ: " .$P_name. "</h5>";	
-			//ยังไม่ได้ดึงชื่อหมวดหมู่ และชื่อหน่วย
 ?>
   			<table>
 				 	
 				<tr align='center' bgcolor='#CCCCCC'>
+					<th width='10%'>วันที่ </th>
                     <th width='5%'>เลขที่ใบรับ </th>
-					<th width='5%'>หน่วยสินค้า </th>
 					<th width='5%'>จำนวน </th>
 					<th width='5%'>ราคา </th>
 					<th width='5%'>ราคารวม </th>
+					<th width='5%'>ผู้รับ </th>
 				</tr>
                 <?php
                     $qty_total = 0;
 					$grand_total = 0;
 					while($order = mysqli_fetch_array($result0)) {
+
 						//ราคารวม
 						$sub_total = $order['Qty'] * $order['Price'];
                         $q_total = $order['Qty'];
-                        
+
 						$Unit_id = $order['Unit_id'];
 						//แปลงจากรหัสเป็นชื่อหน่วย
-						$sql2 = "SELECT * FROM unit WHERE Unit_id = '$Unit_id' ";
+						//$sql2 = "SELECT * FROM unit WHERE Unit_id = '$Unit_id' ";
+						//$result2 = mysqli_query($link,$sql2);
+						//$row2 = mysqli_fetch_array($result2);	
+						//$Unit_name = $row2["Unit_name"];
+
+						//แปลงจากรหัสเป็นชื่อผู้รับ
+						$User_id = $order['User_id'];
+						$sql2 = "SELECT * FROM user WHERE User_id = '$User_id' ";
 						$result2 = mysqli_query($link,$sql2);
 						$row2 = mysqli_fetch_array($result2);	
-						$Unit_name = $row2["Unit_name"];
+						$User_name = $row2["User_name"];
 				?>
 				<tr>
+					<td><?php echo $order['Rec_date']; ?></td><!-- วันที่รับ -->
                     <td><?php echo $order['St_serial']; ?></td><!-- เลขใบรับ -->			
-    				<td><?php echo $Unit_name; ?></td><!-- หน่วยสินค้า -->
     				<td><?php echo $order['Qty']; ?></td><!-- จำนวน -->
     				<td><?php echo $order['Price']; ?></td><!-- ราคา -->
    					<td><?php echo number_format($sub_total); ?></td><!-- รวม -->
+					<td><?php echo $User_name; ?></td><!-- ผู้รับ -->
 				</tr>
                 <?php
                     $qty_total += $q_total;
 					$grand_total += $sub_total;
 				}
 				?>
-				<tr><td colspan="2">รวมทั้งหมด</td><td><?php echo number_format($qty_total); ?></td><td></td><td><?php echo number_format($grand_total); ?></td></tr>
+				<tr><td colspan="2">รวมทั้งหมด</td><td><?php echo number_format($qty_total); ?></td><td></td><td><?php echo number_format($grand_total); ?></td><td></td></tr>
 			</table>
 </div>
 <div id="bottom"><button id="index">&laquo; ย้อนกลับ</button></div>

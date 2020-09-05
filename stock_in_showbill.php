@@ -135,7 +135,7 @@ $(function() {
         //รับค่าไอดีที่จะแก้ไข
         $St_serial = mysqli_real_escape_string($link,$_GET['St_serial']);
 
-		//เลือกหมายเลขซีเรียล วันที่รับ รหัสผู้รับ ท้ายสุด
+		//เลือกหมายเลขซีเรียล วันที่รับ รหัสผู้รับ 
 		$sql0 = "SELECT * FROM stock_inmst WHERE St_serial = '$St_serial' ";
 		$result0 = mysqli_query($link,$sql0);
 		$row0 = mysqli_fetch_array($result0);

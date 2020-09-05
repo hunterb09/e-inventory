@@ -5,7 +5,7 @@ include("table.css");
 //1. เชื่อมต่อ database:
 require("connection.php");
 
-$sql = "SELECT * FROM p_group ORDER BY P_group asc" or die("Error:" . mysqli_error());
+$sql = "SELECT * FROM p_group ORDER BY P_group asc";
 $result = page_query($link, $sql, 10);
 
 ?>
