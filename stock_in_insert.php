@@ -3,11 +3,18 @@
         require("connection.php");       
 
         //เพิ่ม table = stock_inmst
-        //$St_serial = $_POST['St_serial'];
         $uid = $_POST['User_id'];
+        $Sup_name = $_POST['Sup_name'];
         $comment = $_POST['Comment'];
-        $sql = "INSERT into stock_inmst (Rec_date, User_id, Comment)".
-	        "values(NOW(), '$uid', '$comment')";
+
+        //เปลี่ยนจากชื่อ เป็นรหัสซัพพลายเออร์
+        $sql00 = "SELECT * FROM supplier WHERE Sup_name = '$Sup_name' ";
+        $result00 = mysqli_query($link,$sql00);
+        $row00 = mysqli_fetch_array($result00);	
+        $Sup_id = $row00["Sup_id"];
+
+        $sql = "INSERT into stock_inmst (Rec_date, User_id, Sup_id, Comment)".
+	        "values(NOW(), '$uid', '$Sup_id', '$comment')";
         $result = mysqli_query($link,$sql);
 
         //เลือกหมายเลขซีเรียล ท้ายสุด

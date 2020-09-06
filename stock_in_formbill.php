@@ -129,12 +129,19 @@ $(function() {
 		$St_serial = $row0["St_serial"];
 		$Rec_date = $row0["Rec_date"];
 		$User_id = $row0["User_id"];
+		$Sup_id = $row0["Sup_id"];
 
-		//ชื่อผู้รับ
+		//ดึงชื่อผู้รับ
 		$sql1 = "SELECT * FROM user WHERE User_id = '$User_id' ";
 		$result1 = mysqli_query($link,$sql1);
 		$row1 = mysqli_fetch_array($result1);
 		$User_name = $row1["User_name"];
+
+		//ดึงชื่อซัพพลายเออร์ 
+		$sql1 = "SELECT * FROM supplier WHERE Sup_id = '$Sup_id' ";
+		$result1 = mysqli_query($link,$sql1);
+		$row1 = mysqli_fetch_array($result1);
+		$Sup_name = $row1["Sup_name"];
 
 		//ลำดับ รหัสสินค้า หน่วยสินค้า ปริมาณ ราคา
 		$sql2 = "SELECT * FROM stock_indtl WHERE St_serial = '$St_serial' ";
@@ -154,7 +161,8 @@ $(function() {
   			<table>
 				 	
    	 					วันที่: <?php echo $Rec_date; ?> &nbsp;&nbsp;
-                        ผู้รับ: <?php echo $User_name; ?>
+						ผู้รับ: <?php echo $User_name; ?> &nbsp;&nbsp;
+						ซัพพลายเออร์: <?php echo $Sup_name; ?>
 				<tr align='center' bgcolor='#CCCCCC'>
 					<th width='5%'>ลำดับ </th>
 					<th width='7%'>รหัสสินค้า </th>

@@ -9,6 +9,10 @@ $result1 = mysqli_query($link, $sql);
 $sql = "SELECT * FROM unit ORDER BY Unit_name asc";
 $result2 = mysqli_query($link, $sql);
 
+//ดึงซัพพลายเออร์
+$sql = "SELECT * FROM supplier ORDER BY Sup_id asc";
+$result3 = mysqli_query($link, $sql);
+
 //เลือกหมายเลขซีเรียล วันที่รับ รหัสผู้รับ ท้ายสุด
 $sql0 = "SELECT *, DATE_FORMAT(Rec_date, '%d-%m-%Y') AS Rec_date
 FROM stock_inmst ORDER BY St_serial desc";
@@ -183,6 +187,16 @@ if ($P_id <= 9) {
 			}
 		}
 	</script>
+	<script>
+		$(function() {
+			$('#Sup_name').selectMe({
+				width: '300px',
+				columnCount: 1, //จำนวนคอลัมน์
+				search: true //แสดงช่องค้นหาหรือไม่
+			});
+
+		});
+	</script>
 </head>
 
 <body><br><br>
@@ -218,6 +232,12 @@ if ($P_id <= 9) {
 			<table border="0" width="80%" align="center">
 				<tbody>
 					<tr>
+						<td class="text-right" width="20%">ซัพพลายเออร์: </td>
+						<td class="text-left" width="10%"><select name='Sup_name' id='Sup_name'>
+								<?php while ($row3 = mysqli_fetch_array($result3)) { ?> 
+									<option value='<?php echo $row3["Sup_name"] ?>'> <?php echo $row3["Sup_name"] ?></option>
+								<?php } ?>
+						</select></td>
 						<td class="text-right" width="10%">หมายเหตุ: </td>
 						<td class="text-left" width="10%"><textarea name="Comment" id="Comment" cols="30" rows="1"></textarea></td>
 					</tr>
