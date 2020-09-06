@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("pagination.php");
-include("table.css");
 //1. เชื่อมต่อ database:
 require("connection.php");
 
@@ -17,6 +16,9 @@ $result1 = mysqli_query($link, $sql);
 
 <head>
 	<title>จัดการสินค้า</title>
+	<style>
+		@import "table.css";
+	</style>
 	<link rel="icon" href="picture/favicon.ico" type="image/x-icon">
 	<link href="plugins/select-me/selectMe.css" rel="stylesheet"> 
 	<link href="css/bootstrap.min.css" rel="stylesheet">

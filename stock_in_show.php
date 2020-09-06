@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	include("pagination.php");
-	include("table.css");
 	//1. เชื่อมต่อ database:
 	require("connection.php");
 	
@@ -14,6 +13,9 @@
 <html>
 <head>
 	<title>รับสินค้าเข้า</title>
+	<style>
+		@import "table.css";
+	</style>
 	<link href="js/jquery-ui.min.css" rel="stylesheet">
 	<link rel="icon" href="picture/favicon.ico" type="image/x-icon">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -39,16 +41,22 @@
 	echo "<tr align='center' bgcolor='#CCCCCC'>
 			<th width='10%'>เลขที่ใบรับสินค้า </th>
 			<th width='10%'>วันที่รับ </th>
-			<th width='5%'>รหัสผู้ใช้งาน </th>
+			<th width='5%'>ผู้รับ </th>
 			<th width='10%'>หมายเหตุ </th>
 			<th width='5%'>จัดการ </th>
 		  </tr>";
 		  
 	while($row = mysqli_fetch_array($result)) {
-	  echo "<tr align='center'>";
+		//แปลงจากรหัสเป็นชื่อผู้รับ
+		$User_id = $row['User_id'];
+		$sql2 = "SELECT * FROM user WHERE User_id = '$User_id' ";
+		$result2 = mysqli_query($link,$sql2);
+		$row2 = mysqli_fetch_array($result2);	
+		$User_name = $row2["User_name"];
+	 	  echo "<tr align='center'>";
 		  echo "<td>" .$row["St_serial"] .  "</td> ";
 		  echo "<td>" .$row["Rec_date"] .  "</td> ";
-		  echo "<td>" .$row["User_id"] .  "</td> ";
+		  echo "<td>" .$User_name .  "</td> ";
 		  echo "<td>" .$row["Comment"] .  "</td> ";
 		$_SESSION['St_serial'] = $row["St_serial"];
 		//ดู แก้ไข ลบข้อมูล 

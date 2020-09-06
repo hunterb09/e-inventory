@@ -68,22 +68,9 @@
 	button#next, button#confirm, button#submit {
 		float:right;
 	}
-	h2 {
-		color:green;
-		text-align: center;
-		font-size: 18px;
-	}
+
 	.warning {
 		color:red !important;
-	}
-	img.logo2 {
-		margin: 10px 0px 10px;
-	}
-	h2.order-step {
-		float: right;
-		font: normal 24px tahoma;
-		color: steelblue;
-		margin: 20px 0px 0px;
 	}
 	br.clear {
 		clear: both;

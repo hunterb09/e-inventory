@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("pagination.php");
-include("table.css");
 //1. เชื่อมต่อ database:
 require("connection.php");
 
@@ -18,6 +17,9 @@ $result = page_query($link, $sql, 100);
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<style>
+		@import "table.css";
+	</style>
 </head>
 
 <body align="center">

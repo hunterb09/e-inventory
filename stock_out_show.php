@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("pagination.php");
-include("table.css");
 //1. เชื่อมต่อ database:
 require("connection.php");
 
@@ -15,6 +14,9 @@ $result = page_query($link, $sql, 10);
 
 <head>
 	<title>เบิกสินค้าออก</title>
+	<style>
+		@import "table.css";
+	</style>
 	<link href="js/jquery-ui.min.css" rel="stylesheet">
 	<link rel="icon" href="picture/favicon.ico" type="image/x-icon">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,18 +44,32 @@ echo "<tr>";
 echo "<tr align='center' bgcolor='#CCCCCC'>
 			<th width='10%'>เลขที่ใบเบิกสินค้า </th>
 			<th width='10%'>วันที่เบิก </th>
-            <th width='5%'>รหัสผู้ใช้งาน </th>
-            <th width='5%'>รหัสวัตถุประสงค์การเช็ค </th>
+            <th width='5%'>ผู้เบิก </th>
+            <th width='5%'>วัตถุประสงค์ </th>
 			<th width='10%'>หมายเหตุ </th>
 			<th width='5%'>จัดการ </th>
 		  </tr>";
 
 while ($row = mysqli_fetch_array($result)) {
+	//แปลงจากรหัสเป็นชื่อผู้รับ
+	$User_id = $row['User_id'];
+	$sql2 = "SELECT * FROM user WHERE User_id = '$User_id' ";
+	$result2 = mysqli_query($link,$sql2);
+	$row2 = mysqli_fetch_array($result2);	
+	$User_name = $row2["User_name"];
+
+	//แปลงจากรหัสเป็นวัตถุประสงค์
+	$Pp_id = $row['Pp_id'];
+	$sql2 = "SELECT * FROM purpose WHERE Pp_id = '$Pp_id' ";
+	$result2 = mysqli_query($link,$sql2);
+	$row2 = mysqli_fetch_array($result2);	
+	$Pp_name = $row2["Pp_name"];
+
 	echo "<tr align='center'>";
 	echo "<td>" . $row["Stout_serial"] .  "</td> ";
 	echo "<td>" . $row["Rec_date"] .  "</td> ";
-	echo "<td>" . $row["User_id"] .  "</td> ";
-	echo "<td>" . $row["Pp_id"] .  "</td> ";
+	echo "<td>" . $User_name .  "</td> ";
+	echo "<td>" . $Pp_name .  "</td> ";
 	echo "<td>" . $row["Comment"] .  "</td> ";
 	$_SESSION['Stout_serial'] = $row["Stout_serial"];
 	//ดู แก้ไข ลบข้อมูล 

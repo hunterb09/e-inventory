@@ -1,6 +1,5 @@
 <?php
 	include("pagination.php");
-	include("table.css");
 	//1. เชื่อมต่อ database:
 	require("connection.php");
 	
@@ -13,6 +12,9 @@
 <html>
 <head>
 	<title>จัดการผู้ใช้งาน</title>
+	<style>
+		@import "table.css";
+	</style>
 	<link href="js/jquery-ui.min.css" rel="stylesheet">
 	<link rel="icon" href="picture/favicon.ico" type="image/x-icon">
     <link href="css/bootstrap.min.css" rel="stylesheet">

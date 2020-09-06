@@ -8,8 +8,22 @@ session_start();
 <meta charset="utf-8">
 <title>บิลรับสินค้าเข้า</title>
 <style>
-	@import "global-order.css";
-	
+
+	div#head {
+		background: powderblue;
+		font-size: 20px;
+		color: navy;
+	}
+	div#bottom button {
+		margin: 1px 2px;
+		background: steelblue;
+		border: solid 1px silver;
+		color: white;
+		padding: 3px 10px;
+		border-radius: 5px;
+		cursor: pointer;
+		font: 14px tahoma;
+	}
 	form {
 		margin: 20px auto;
 		width: 70%;
@@ -153,7 +167,7 @@ $(function() {
 		echo "<h5>สินค้า: " .$P_id. "</h5>";	
         echo "<h5>ชื่อ: " .$P_name. "</h5>";	
 ?>
-  			<table>
+  			<table width='90%'>
 				 	
 				<tr align='center' bgcolor='#CCCCCC'>
 					<th width='10%'>วันที่ </th>
@@ -162,12 +176,15 @@ $(function() {
 					<th width='5%'>ราคา </th>
 					<th width='5%'>ราคารวม </th>
 					<th width='5%'>ผู้รับ </th>
+					<th width='5%'>เลขที่ใบเบิก </th>
+					<th width='5%'>จำนวนเบิก </th>
+					<!--<th width='5%'>จัดการ </th>-->
 				</tr>
                 <?php
                     $qty_total = 0;
 					$grand_total = 0;
 					while($order = mysqli_fetch_array($result0)) {
-
+						$St_indtl = $order['St_indtl'];
 						//ราคารวม
 						$sub_total = $order['Qty_change'] * $order['Price'];
                         $q_total = $order['Qty_change'];
@@ -185,21 +202,59 @@ $(function() {
 						$result2 = mysqli_query($link,$sql2);
 						$row2 = mysqli_fetch_array($result2);	
 						$User_name = $row2["User_name"];
-				?>
-				<tr>
-					<td><?php echo $order['Rec_date']; ?></td><!-- วันที่รับ -->
-                    <td><?php echo $order['St_serial']; ?></td><!-- เลขใบรับ -->			
-    				<td><?php echo $order['Qty_change']; ?></td><!-- จำนวน -->
-    				<td><?php echo $order['Price']; ?></td><!-- ราคา -->
-   					<td><?php echo number_format($sub_total); ?></td><!-- รวม -->
-					<td><?php echo $User_name; ?></td><!-- ผู้รับ -->
-				</tr>
-                <?php
+
+						//ค้นหา St_indtl ในเทเบิ้ล stock_outdtl
+						$sql = "SELECT * FROM stock_outdtl WHERE St_indtl = '$St_indtl' ";
+						$result = mysqli_query($link,$sql);
+	
+						$num = mysqli_num_rows($result); 
+						if($num > 0){
+							for($i = 1; $i <= $num; $i++){
+								$row = mysqli_fetch_array($result);
+									$Stout_serial = $row["Stout_serial"];
+									$Qty = $row["Qty"];
+									if($i == 1){
+										echo "<tr>";
+										echo "<td>". $order['Rec_date'] ."</td>";// วันที่รับ -->
+										echo "<td>". $order['St_serial']."</td>";// เลขใบรับ -->			
+										echo "<td>". $order['Qty_change']."</td>";// จำนวน -->
+										echo "<td>". $order['Price']."</td>";// ราคา -->
+										echo "<td>". number_format($sub_total)."</td>";// รวม -->
+										echo "<td>". $User_name."</td>";// ผู้รับ -->
+										echo "<td>". $Stout_serial."</td>";// เลขที่ใบเบิก -->
+										echo "<td>". $Qty."</td>";// จำนวนเบิก -->
+										echo "</tr>";
+									}else{
+										echo "<tr>";
+										echo "<td></td>";
+										echo "<td></td>";
+										echo "<td></td>";
+										echo "<td></td>";
+										echo "<td></td>";
+										echo "<td></td>";
+										echo "<td>". $Stout_serial."</td>";// เลขที่ใบเบิก -->
+										echo "<td>". $Qty."</td>";// จำนวนเบิก -->
+										echo "</tr>";
+									}
+								
+							}
+						}else{
+							echo "<tr>";
+							echo "<td>". $order['Rec_date'] ."</td>";// วันที่รับ -->
+							echo "<td>". $order['St_serial']."</td>";// เลขใบรับ -->			
+							echo "<td>". $order['Qty_change']."</td>";// จำนวน -->
+							echo "<td>". $order['Price']."</td>";// ราคา -->
+							echo "<td>". number_format($sub_total)."</td>";// รวม -->
+							echo "<td>". $User_name."</td>";// ผู้รับ -->
+							echo "<td></td>";
+							echo "<td></td>";
+							echo "</tr>";
+						}
                     $qty_total += $q_total;
 					$grand_total += $sub_total;
-				}
+					}
 				?>
-				<tr><td colspan="2">รวมทั้งหมด</td><td><?php echo number_format($qty_total); ?></td><td></td><td><?php echo number_format($grand_total); ?></td><td></td></tr>
+				<tr><td colspan="2">รวมทั้งหมด</td><td><?php echo number_format($qty_total); ?></td><td></td><td><?php echo number_format($grand_total); ?></td><td colspan="3"></td></tr>
 			</table>
 </div>
 <div id="bottom"><button id="index">&laquo; ย้อนกลับ</button></div>
