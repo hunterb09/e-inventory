@@ -65,11 +65,11 @@
 </html>
 
 <?php
-	echo '<br><br><center><h2><img src="picture/product/p_group.png" width="50"height="50"> <u> หน่วยสินค้า  </u></h2><br>';
+	/*echo '<br><br><center><h2><img src="picture/product/p_group.png" width="50"height="50"> <u> หน่วยสินค้า  </u></h2><br>';
 	echo '<a href="unit_search.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">ค้นหาหน่วย </a>
 		 <a href="unit_form.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">เพิ่มหน่วย </a>';
 	echo '<p></p>';
-	echo "<a href='unit_search.php?ID='> ย้อนกลับ </a>";
+	echo "<a href='unit_search.php?ID='> ย้อนกลับ </a>";*/
 	
 	//หัวข้อตาราง
 	echo "<table id='table' border='1' align='center' width='80%'>";
@@ -105,4 +105,4 @@
 <?php 
 //สร้างแถบเมนู
 include("navbar_check.php");
-include("footer.html"); ?>	
+//include("footer.html"); ?>	

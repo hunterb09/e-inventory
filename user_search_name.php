@@ -65,11 +65,11 @@
 </html>
 
 <?php
-	echo '<br><br><center><h2><img src="picture/product/p_group.png" width="50"height="50"> <u> ผู้ใช้งาน  </u></h2><br>';
+	/*echo '<br><br><center><h2><img src="picture/product/p_group.png" width="50"height="50"> <u> ผู้ใช้งาน  </u></h2><br>';
 	echo '<a href="user_search.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">ค้นหาผู้ใช้งาน </a>
 		 <a href="user_form.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">เพิ่มผู้ใช้งาน </a>';
 	echo '<p></p>';
-	echo "<a href='user_search.php?ID='> ย้อนกลับ </a>";
+	echo "<a href='user_search.php?ID='> ย้อนกลับ </a>";*/
 	
 	//หัวข้อตาราง
 	echo "<table id='table' border='1' align='center' width='80%'>";
@@ -109,4 +109,4 @@
 <?php 
 //สร้างแถบเมนู
 include("navbar_check.php");
-include("footer.html"); ?>	
+//include("footer.html"); ?>	

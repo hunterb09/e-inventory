@@ -64,8 +64,8 @@
 </html>
 
 <?php
-	echo '<br><br><center><h2><img src="picture/product/p_group.png" width="50"height="50"> <u> ผู้ใช้งาน  </u></h2><br>';
-	echo "<a href='stock_in_search.php?ID='> ย้อนกลับ </a>";
+	/*echo '<br><br><center><h2><img src="picture/product/p_group.png" width="50"height="50"> <u> ผู้ใช้งาน  </u></h2><br>';
+	echo "<a href='stock_in_search.php?ID='> ย้อนกลับ </a>";*/
 	
 	//หัวข้อตาราง
 	echo "<table id='table' border='1' align='center' width='80%'>";
@@ -105,4 +105,4 @@
 <?php 
 //สร้างแถบเมนู
 include("navbar_check.php");
-include("footer.html"); ?>	
+//include("footer.html"); ?>	

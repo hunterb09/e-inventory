@@ -1,20 +1,19 @@
 <?php
-	$data = $_POST['User_id'];
+	$data = $_POST['id'];
 	session_start();
 	include("pagination.php");
 
 	//1. เชื่อมต่อ database:
 	require("connection.php");
 	
-	$sql = "SELECT * FROM user WHERE User_id LIKE '%$data%' ";
-	$result = page_query($link, $sql, 10);
-
-
+	$sql = "SELECT * FROM stock_outmst WHERE Stout_serial LIKE '%$data%' ";
+	$result = page_query($link, $sql, 100);
+    
 ?>
 
 <html>
 <head>
-	<title>จัดการผู้ใช้งาน</title>
+	<title>ค้นหาผู้ใช้งาน</title>
 	<link href="js/jquery-ui.min.css" rel="stylesheet">
 	<link rel="icon" href="picture/favicon.ico" type="image/x-icon">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -66,10 +65,7 @@
 
 <?php
 	/*echo '<br><br><center><h2><img src="picture/product/p_group.png" width="50"height="50"> <u> ผู้ใช้งาน  </u></h2><br>';
-	echo '<a href="user_search.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">ค้นหาผู้ใช้งาน </a>
-		 <a href="user_form.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">เพิ่มผู้ใช้งาน </a>';
-	echo '<p></p>';
-	echo "<a href='user_search.php?ID='> ย้อนกลับ </a>";*/
+	echo "<a href='stock_in_search.php?ID='> ย้อนกลับ </a>";*/
 	
 	//หัวข้อตาราง
 	echo "<table id='table' border='1' align='center' width='80%'>";
@@ -77,24 +73,40 @@
  		 " จากทั้งหมด: " . page_total_rows() . "</caption>";
 	echo "<tr>";
 	echo "<tr align='center' bgcolor='#CCCCCC'>
-			<th width='8%'>รหัสผู้ใช้งาน </th>
-			<th width='8%'>ไอดี </th>
-			<th width='15%'>ชื่อผู้ใช้งาน </th>
-			<th width='8%'>สถานะ </th>
-			<th width='15%'>จัดการ </th>
+			<th width='10%'>เลขที่ใบรับสินค้า </th>
+			<th width='10%'>วันที่รับ </th>
+			<th width='5%'>ผู้เบิก </th>
+            <th width='5%'>วัตถุประสงค์ </th>
+			<th width='10%'>หมายเหตุ </th>
+			<th width='5%'>จัดการ </th>
 		  </tr>";
 		  
 	while($row = mysqli_fetch_array($result)) {
-	  echo "<tr align='center'>";
-		  echo "<td>" .$row["User_id"] .  "</td> ";
-		  echo "<td>" .$row["ID"] .  "</td> ";
-		  echo "<td>" .$row["User_name"] .  "</td> ";
-		  echo "<td>" .$row["User_status"] .  "</td> ";
-			
-		$_SESSION['User_id'] = $row["User_id"];
-		//รูปภาพ แก้ไขข้อมูล ลบ
-		echo "<td><center><a href='user_update_form.php?User_id=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>
-		<a href='user_delete.php?User_id=$row[0] ' onclick=\"return confirm('ต้องการที่จะลบหน่วยหรือไม่ ')\"><button class='btn btn-danger'>ลบ</button></a></td> ";	
+	    //แปลงจากรหัสเป็นชื่อผู้รับ
+		$User_id = $row['User_id'];
+		$sql2 = "SELECT * FROM user WHERE User_id = '$User_id' ";
+		$result2 = mysqli_query($link,$sql2);
+		$row2 = mysqli_fetch_array($result2);	
+		$User_name = $row2["User_name"];
+
+		//แปลงจากรหัสเป็นวัตถุประสงค์
+		$Pp_id = $row['Pp_id'];
+		$sql2 = "SELECT * FROM purpose WHERE Pp_id = '$Pp_id' ";
+		$result2 = mysqli_query($link,$sql2);
+		$row2 = mysqli_fetch_array($result2);	
+		$Pp_name = $row2["Pp_name"];
+
+		echo "<tr align='center'>";
+		echo "<td>" . $row["Stout_serial"] .  "</td> ";
+		echo "<td>" . $row["Rec_date"] .  "</td> ";
+		echo "<td>" . $User_name .  "</td> ";
+		echo "<td>" . $Pp_name .  "</td> ";
+		echo "<td>" . $row["Comment"] .  "</td> ";
+		$_SESSION['Stout_serial'] = $row["Stout_serial"];
+		//ดู แก้ไข ลบข้อมูล 
+		echo "<td><center><a href='stock_in_showbill.php?St_serial=$row[0]'><button class='btn btn-info'>ดูข้อมูล</button></a></td> ";	
+		//<a href='stock_in_update_form.php?St_serial=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>
+		//<a href='stock_in_delete.php?St_serial=$row[0] ' onclick=\"return confirm('ต้องการที่จะลบรายการหรือไม่ ')\"><button class='btn btn-danger'>ลบ</button></a></td> ";	
 	  echo "</tr>";
 	}
 	echo "</table>";

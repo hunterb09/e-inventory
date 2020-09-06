@@ -4,7 +4,7 @@ include("pagination.php");
 //1. เชื่อมต่อ database:
 require("connection.php");
 
-$sql = "SELECT * FROM p_group ORDER BY P_group asc";
+$sql = "SELECT * FROM supplier ORDER BY Sup_id asc";
 $result = page_query($link, $sql, 10);
 
 ?>
@@ -12,7 +12,7 @@ $result = page_query($link, $sql, 10);
 <html>
 
 <head>
-	<title>จัดการหมวดหมู่สินค้า</title>
+	<title>จัดการซัพพลายเออร์</title>
 	<style>
 		@import "table.css";
 	</style>
@@ -33,9 +33,9 @@ $result = page_query($link, $sql, 10);
 		function Validation() {
 			var noERROR = true;
 
-			var Pname = document.getElementById("G_name");
+			var Pname = document.getElementById("Sup_name");
 			if (Pname.value.trim() == "") {
-				alert("กรุณากรอกชื่อหมวดหมู่สินค้า");
+				alert("กรุณากรอกชื่อซัพพลายเออร์");
 				noERROR = false;
 			}
 
@@ -53,16 +53,16 @@ $result = page_query($link, $sql, 10);
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">เพิ่มหมวดหมู่สินค้า</h5>
+					<h5 class="modal-title">เพิ่มซัพพลายเออร์</h5>
 					<button class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-					<form id="form" method=post action="group_insert.php" enctype="multipart/form-data">
+					<form id="form" method=post action="supplier_insert.php" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="login">ชื่อ:</label>
-							<input type="text" id="G_name" name="G_name" class="form-control">
+							<input type="text" id="Sup_name" name="Sup_name" class="form-control">
 						</div>
 					</form><!-- ต้องเช็คในdatabaseก่อนว่า ชื่อมีอยู่ในระบบรึยัง -->
 				</div>
@@ -77,9 +77,9 @@ $result = page_query($link, $sql, 10);
 </html>
 
 <?php
-echo '<br><br><center><h2><img src="picture/product/p_group.png" width="50"height="50"> <u> หมวดหมู่สินค้า  </u></h2><br>';
-echo '<a href="group_search.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">ค้นหาหมวดหมู่ </a>
-			<button id="btnAdd" class="btn btn-primary btn-lg active">เพิ่มหมวดหมู่</button>';
+echo '<br><br><center><h2><img src="picture/product/p_group.png" width="50"height="50"> <u> ซัพพลายเออร์  </u></h2><br>';
+echo '<a href="supplier_search.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">ค้นหาซัพพลายเออร์ </a>
+			<button id="btnAdd" class="btn btn-primary btn-lg active">เพิ่มซัพพลายเออร์</button>';
 echo '<p></p>';
 
 //หัวข้อตาราง
@@ -88,20 +88,20 @@ echo "<caption>ข้อมูลรายการ: " . page_start_row() . " - 
 	" จากทั้งหมด: " . page_total_rows() . "</caption>";
 echo "<tr>";
 echo "<tr align='center' bgcolor='#CCCCCC'>
-			<th width='8%'>รหัสหมวดหมู่สินค้า </th>
-			<th width='15%'>ชื่อหมวดหมู่สินค้า </th>
+			<th width='8%'>รหัสซัพพลายเออร์ </th>
+			<th width='15%'>ชื่อซัพพลายเออร์ </th>
 			<th width='15%'>จัดการ </th>
 		  </tr>";
 
 while ($row = mysqli_fetch_array($result)) {
 	echo "<tr align='center'>";
-	echo "<td>" . $row["P_group"] .  "</td> ";
-	echo "<td>" . $row["G_name"] .  "</td> ";
+	echo "<td>" . $row["Sup_id"] .  "</td> ";
+	echo "<td>" . $row["Sup_name"] .  "</td> ";
 
-	$_SESSION['P_group'] = $row["P_group"];
+	$_SESSION['Sup_id'] = $row["Sup_id"];
 	//แก้ไขข้อมูล ลบ
-	echo "<td><center><a href='group_update_form.php?P_group=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>
-		<a href='group_delete.php?P_group=$row[0] ' onclick=\"return confirm('ต้องการที่จะลบหมวดหมู่หรือไม่ ')\"><button class='btn btn-danger'>ลบ</button></a></td> ";
+	echo "<td><center><a href='supplier_update_form.php?Sup_id=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>
+		<a href='supplier_delete.php?Sup_id=$row[0] ' onclick=\"return confirm('ต้องการที่จะลบซัพพลายเออร์หรือไม่ ')\"><button class='btn btn-danger'>ลบ</button></a></td> ";
 	echo "</tr>";
 }
 echo "</table>";
