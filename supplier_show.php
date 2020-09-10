@@ -35,7 +35,25 @@ $result = page_query($link, $sql, 10);
 
 			var Pname = document.getElementById("Sup_name");
 			if (Pname.value.trim() == "") {
-				alert("กรุณากรอกชื่อซัพพลายเออร์");
+				alert("กรุณากรอกชื่อผู้จัดส่ง");
+				noERROR = false;
+			}
+
+			var Mname = document.getElementById("Address");
+			if (Mname.value.trim() == "") {
+				alert("กรุณากรอกที่อยู่");
+				noERROR = false;
+			}
+
+			var Mname = document.getElementById("Phone");
+			if (Mname.value.trim() == "") {
+				alert("กรุณากรอกโทรศัพท์");
+				noERROR = false;
+			}
+
+			var Mname = document.getElementById("Contact_name");
+			if (Mname.value.trim() == "") {
+				alert("กรุณากรอกชื่อผู้ที่จะติดต่อ");
 				noERROR = false;
 			}
 
@@ -61,8 +79,20 @@ $result = page_query($link, $sql, 10);
 				<div class="modal-body">
 					<form id="form" method=post action="supplier_insert.php" enctype="multipart/form-data">
 						<div class="form-group">
-							<label for="login">ชื่อ:</label>
+							<label for="login">ชื่อผู้จัดส่ง:</label>
 							<input type="text" id="Sup_name" name="Sup_name" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="login">ที่อยู่:</label>
+							<input type="text" id="Address" name="Address" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="login">โทรศัพท์:</label>
+							<input type="text" id="Phone" name="Phone" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="login">ชื่อผู้ที่จะติดต่อ:</label>
+							<input type="text" id="Contact_name" name="Contact_name" class="form-control">
 						</div>
 					</form><!-- ต้องเช็คในdatabaseก่อนว่า ชื่อมีอยู่ในระบบรึยัง -->
 				</div>
@@ -88,8 +118,11 @@ echo "<caption>ข้อมูลรายการ: " . page_start_row() . " - 
 	" จากทั้งหมด: " . page_total_rows() . "</caption>";
 echo "<tr>";
 echo "<tr align='center' bgcolor='#CCCCCC'>
-			<th width='8%'>รหัสซัพพลายเออร์ </th>
-			<th width='15%'>ชื่อซัพพลายเออร์ </th>
+			<th width='5%'>รหัส </th>
+			<th width='10%'>ชื่อผู้จัดส่ง </th>
+			<th width='15%'>ที่อยู่ </th>
+			<th width='5%'>โทรศัพท์ </th>
+			<th width='10%'>ชื่อผู้ที่จะติดต่อ </th>
 			<th width='15%'>จัดการ </th>
 		  </tr>";
 
@@ -97,6 +130,9 @@ while ($row = mysqli_fetch_array($result)) {
 	echo "<tr align='center'>";
 	echo "<td>" . $row["Sup_id"] .  "</td> ";
 	echo "<td>" . $row["Sup_name"] .  "</td> ";
+	echo "<td>" . $row["Address"] .  "</td> ";
+	echo "<td>" . $row["Phone"] .  "</td> ";
+	echo "<td>" . $row["Contact_name"] .  "</td> ";
 
 	$_SESSION['Sup_id'] = $row["Sup_id"];
 	//แก้ไขข้อมูล ลบ

@@ -44,8 +44,32 @@ session_start();
       <td bgcolor="#EBEBEB">&nbsp;</td>
     </tr>
     <tr>
-      <td width="117" align="right" bgcolor="#EBEBEB">ชื่อซัพพลายเออร์ :</td>
+      <td width="117" align="right" bgcolor="#EBEBEB">ชื่อผู้จัดส่ง :</td>
       <td width="583" bgcolor="#EBEBEB"><input name="Sup_name" type="text" id="Sup_name" value="<?=$Sup_name;?>" size="30" required="required"  /></td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#EBEBEB">&nbsp;</td>
+      <td bgcolor="#EBEBEB">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="117" align="right" bgcolor="#EBEBEB">ที่อยู่ :</td>
+      <td width="583" bgcolor="#EBEBEB"><textarea name="Address" id="Address" cols="33" rows="4"><?=$Address;?></textarea></td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#EBEBEB">&nbsp;</td>
+      <td bgcolor="#EBEBEB">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="117" align="right" bgcolor="#EBEBEB">โทรศัพท์ :</td>
+      <td width="583" bgcolor="#EBEBEB"><input name="Phone" type="text" id="Phone" value="<?=$Phone;?>" size="30" required="required"  /></td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#EBEBEB">&nbsp;</td>
+      <td bgcolor="#EBEBEB">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="117" align="right" bgcolor="#EBEBEB">ชื่อผู้ที่จะติดต่อ :</td>
+      <td width="583" bgcolor="#EBEBEB"><input name="Contact_name" type="text" id="Contact_name" value="<?=$Contact_name;?>" size="30" required="required"  /></td>
     </tr>
     <tr>
       <td align="right" bgcolor="#EBEBEB">&nbsp;</td>

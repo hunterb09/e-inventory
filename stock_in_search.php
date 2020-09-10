@@ -39,6 +39,16 @@
 				parameters: params
 			});
 		}
+		function Product4(Div) {
+			var Sup_name = document.frmprice4['Sup_name'].value;
+			var params = "Sup_name=" + Sup_name; // +
+			//alert(params);
+			var url = "stock_in_search_Sup_name.php"; // 
+			var Addnew = new Ajax.Updater(Div, url, {
+				method: "post",
+				parameters: params
+			});
+		}
 	</script>
 	</head>
 	<body><br><br><center>
@@ -70,8 +80,19 @@
 			<table border="0" width="80%" align="center">
 				<tbody>
 					<tr>
-						<td class="text-right" width="10%">จากรหัสผู้ใช้งาน: </td>
+						<td class="text-right" width="10%">จากผู้รับ: </td>
 						<td class="text-left" width="10%"><input type="text" name="User_id"><input id="button" type="button" onclick="Product3(stock)" value="ค้นหา"></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		
+		<form method=post action="stock_in_search_Sup_name.php" name="frmprice4">
+			<table border="0" width="80%" align="center">
+				<tbody>
+					<tr>
+						<td class="text-right" width="10%">จากผู้จัดส่ง: </td>
+						<td class="text-left" width="10%"><input type="text" name="Sup_name"><input id="button" type="button" onclick="Product4(stock)" value="ค้นหา"></td>
 					</tr>
 				</tbody>
 			</table>

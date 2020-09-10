@@ -3,6 +3,9 @@
 	require("connection.php");
 	
 	$Sup_name = $_POST['Sup_name'];
+	$Address = $_POST['Address'];
+	$Phone = $_POST['Phone'];
+	$Contact_name = $_POST['Contact_name'];
 	// เช็คว่ามีข้อมูลนี้อยู่หรือไม่
 	$sql="SELECT * FROM supplier WHERE Sup_name='$Sup_name' ";
 	$result1 = mysqli_query($link,$sql);	
@@ -13,8 +16,8 @@
 		window.location = 'supplier_show.php'; </script>";
     }else{
 		//ยังไม่มีชื่อนี้อยู่ในระบบ
-		$sql = "insert into supplier (Sup_name)".
-		"values('$Sup_name')";
+		$sql = "insert into supplier (Sup_name, Address, Phone, Contact_name)".
+		"values('$Sup_name', '$Address', '$Phone', '$Contact_name')";
 		$result = mysqli_query($link,$sql);	
 		echo "<script type='text/javascript'>alert('เพิ่มซัพพลายเออร์ $Sup_name สำเร็จ');
 		window.location = 'supplier_show.php'; </script>";

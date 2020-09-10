@@ -2,7 +2,7 @@
 	//เชื่อมต่อฐานข้อมูล 
 	require("connection.php");
 	//รันเลขไอดีออโต้
-	$sql = "SELECT * FROM product ORDER BY P_id desc" or die("Error:" . mysqli_error());
+	$sql = "SELECT * FROM product ORDER BY P_id desc";
 	$result = mysqli_query($link,$sql);
 	$row = mysqli_fetch_array($result);
 	$startid = "LT";

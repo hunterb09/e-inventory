@@ -22,8 +22,8 @@
 			});
 		}
 		function Product2(Div) {
-			var P_group = document.frmprice2['P_group'].value;
-			var params = "P_group=" + P_group; // +
+			var G_name = document.frmprice2['G_name'].value;
+			var params = "G_name=" + G_name; // +
 			//alert(params);
 			var url = "product_search_group.php"; // 
 			var Addnew = new Ajax.Updater(Div, url, {
@@ -70,8 +70,8 @@
 			<table border="0" width="80%" align="center">
 				<tbody>
 					<tr>
-                        <td class="text-right" width="10%">จากรหัสหมวดหมู่: </td>
-                        <td class="text-left" width="10%"><input type="text" name="P_group"><input id="button" type="button" onclick="Product2(stock)" value="ค้นหา"></td>
+                        <td class="text-right" width="10%">จากหมวดหมู่: </td>
+                        <td class="text-left" width="10%"><input type="text" name="G_name"><input id="button" type="button" onclick="Product2(stock)" value="ค้นหา"></td>
 					</tr>
 				</tbody>
 			</table>

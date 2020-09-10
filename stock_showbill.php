@@ -153,7 +153,7 @@ $(function() {
 		//$sql0 = "SELECT * FROM stock_indtl WHERE P_id = '$P_id' ";
 		//$result0 = mysqli_query($link,$sql0);
         //เชื่อม 3ตาราง
-		$sql0 = "SELECT stock_indtl.*, stock_inmst.St_serial, stock_inmst.Rec_date, stock_inmst.User_id
+		$sql0 = "SELECT stock_indtl.*, stock_inmst.St_serial, stock_inmst.Rec_date, stock_inmst.User_id, stock_inmst.Sup_id
 			FROM stock_indtl LEFT JOIN stock_inmst
 		    ON stock_indtl.St_serial = stock_inmst.St_serial
 		    WHERE stock_indtl.P_id = '$P_id'";
@@ -172,12 +172,15 @@ $(function() {
 				<tr align='center' bgcolor='#CCCCCC'>
 					<th width='10%'>วันที่ </th>
                     <th width='5%'>เลขที่ใบรับ </th>
-					<th width='5%'>จำนวน </th>
+					<th width='5%'>จำนวนรับ </th>
+					<th width='5%'>จำนวนคงเหลือ </th>
 					<th width='5%'>ราคา </th>
 					<th width='5%'>ราคารวม </th>
 					<th width='5%'>ผู้รับ </th>
+					<th width='5%'>ซัพพลายเออร์ </th>
 					<th width='5%'>เลขที่ใบเบิก </th>
 					<th width='5%'>จำนวนเบิก </th>
+					<th width='5%'>ผู้เบิก </th>
 					<!--<th width='5%'>จัดการ </th>-->
 				</tr>
                 <?php
@@ -203,26 +206,50 @@ $(function() {
 						$row2 = mysqli_fetch_array($result2);	
 						$User_name = $row2["User_name"];
 
+						//แปลงจากรหัสเป็นชื่อซัพพลายเออร์
+						$Sup_id = $order['Sup_id'];
+						$sql3 = "SELECT * FROM supplier WHERE Sup_id = '$Sup_id' ";
+						$result3 = mysqli_query($link,$sql3);
+						$row3 = mysqli_fetch_array($result3);	
+						$Sup_name = $row3["Sup_name"];
+
 						//ค้นหา St_indtl ในเทเบิ้ล stock_outdtl
-						$sql = "SELECT * FROM stock_outdtl WHERE St_indtl = '$St_indtl' ";
-						$result = mysqli_query($link,$sql);
+						//$sql = "SELECT * FROM stock_outdtl WHERE St_indtl = '$St_indtl' ";
+						//$result = mysqli_query($link,$sql);
 	
+						$sql = "SELECT stock_outdtl.*, stock_outmst.User_id
+						FROM stock_outdtl LEFT JOIN stock_outmst
+						ON stock_outdtl.Stout_serial = stock_outmst.Stout_serial
+						WHERE stock_outdtl.St_indtl = '$St_indtl'";
+						$result = mysqli_query($link, $sql);
+
+
 						$num = mysqli_num_rows($result); 
 						if($num > 0){
 							for($i = 1; $i <= $num; $i++){
 								$row = mysqli_fetch_array($result);
 									$Stout_serial = $row["Stout_serial"];
 									$Qty = $row["Qty"];
+
+									//แปลงจากรหัสเป็นชื่อผู้เบิก
+									$User_id = $row["User_id"];
+									$sql4 = "SELECT * FROM user WHERE User_id = '$User_id' ";
+									$result4 = mysqli_query($link,$sql4);
+									$row4 = mysqli_fetch_array($result4);	
+									$User_name2 = $row4["User_name"];
 									if($i == 1){
 										echo "<tr>";
 										echo "<td>". $order['Rec_date'] ."</td>";// วันที่รับ -->
 										echo "<td>". $order['St_serial']."</td>";// เลขใบรับ -->			
-										echo "<td>". $order['Qty_change']."</td>";// จำนวน -->
+										echo "<td>". $order['Qty']."</td>";// จำนวนรับ -->
+										echo "<td>". $order['Qty_change']."</td>";// จำนวนคงเหลือ -->
 										echo "<td>". $order['Price']."</td>";// ราคา -->
 										echo "<td>". number_format($sub_total)."</td>";// รวม -->
 										echo "<td>". $User_name."</td>";// ผู้รับ -->
+										echo "<td>". $Sup_name."</td>";// ซัพพลายเออร์ -->
 										echo "<td>". $Stout_serial."</td>";// เลขที่ใบเบิก -->
 										echo "<td>". $Qty."</td>";// จำนวนเบิก -->
+										echo "<td>". $User_name2."</td>";// ผู้เบิก -->
 										echo "</tr>";
 									}else{
 										echo "<tr>";
@@ -232,8 +259,11 @@ $(function() {
 										echo "<td></td>";
 										echo "<td></td>";
 										echo "<td></td>";
+										echo "<td></td>";
+										echo "<td></td>";
 										echo "<td>". $Stout_serial."</td>";// เลขที่ใบเบิก -->
 										echo "<td>". $Qty."</td>";// จำนวนเบิก -->
+										echo "<td>". $User_id."</td>";// ผู้เบิก -->
 										echo "</tr>";
 									}
 								
@@ -242,10 +272,13 @@ $(function() {
 							echo "<tr>";
 							echo "<td>". $order['Rec_date'] ."</td>";// วันที่รับ -->
 							echo "<td>". $order['St_serial']."</td>";// เลขใบรับ -->			
-							echo "<td>". $order['Qty_change']."</td>";// จำนวน -->
+							echo "<td>". $order['Qty']."</td>";// จำนวนรับ -->
+							echo "<td>". $order['Qty_change']."</td>";// จำนวนคงเหลือ -->
 							echo "<td>". $order['Price']."</td>";// ราคา -->
 							echo "<td>". number_format($sub_total)."</td>";// รวม -->
 							echo "<td>". $User_name."</td>";// ผู้รับ -->
+							echo "<td>". $Sup_name."</td>";// ซัพพลายเออร์ -->
+							echo "<td></td>";
 							echo "<td></td>";
 							echo "<td></td>";
 							echo "</tr>";
@@ -254,7 +287,7 @@ $(function() {
 					$grand_total += $sub_total;
 					}
 				?>
-				<tr><td colspan="2">รวมทั้งหมด</td><td><?php echo number_format($qty_total); ?></td><td></td><td><?php echo number_format($grand_total); ?></td><td colspan="3"></td></tr>
+				<tr><td colspan="2">รวมทั้งหมด</td><td><?php echo number_format($qty_total); ?></td><td colspan="2"></td><td><?php echo number_format($grand_total); ?></td><td colspan="5"></td></tr>
 			</table>
 </div>
 <div id="bottom"><button id="index">&laquo; ย้อนกลับ</button></div>

@@ -4,7 +4,7 @@
 	//1. เชื่อมต่อ database:
 	require("connection.php");
 	
-	$sql = "SELECT * FROM stock_inmst ORDER BY Rec_date desc" or die("Error:" . mysqli_error());
+	$sql = "SELECT * FROM stock_inmst ORDER BY Rec_date desc";
 	$result = page_query($link, $sql, 10);
 
 
@@ -42,6 +42,7 @@
 			<th width='10%'>เลขที่ใบรับสินค้า </th>
 			<th width='10%'>วันที่รับ </th>
 			<th width='5%'>ผู้รับ </th>
+			<th width='5%'>ผู้จัดส่ง </th>
 			<th width='10%'>หมายเหตุ </th>
 			<th width='5%'>จัดการ </th>
 		  </tr>";
@@ -53,10 +54,18 @@
 		$result2 = mysqli_query($link,$sql2);
 		$row2 = mysqli_fetch_array($result2);	
 		$User_name = $row2["User_name"];
+
+		//แปลงจากรหัสเป็นชื่อผู้จัดส่ง
+		$Sup_id = $row['Sup_id'];
+		$sql3 = "SELECT * FROM supplier WHERE Sup_id = '$Sup_id' ";
+		$result3 = mysqli_query($link,$sql3);
+		$row3= mysqli_fetch_array($result3);	
+		$Sup_name = $row3["Sup_name"];
 	 	  echo "<tr align='center'>";
 		  echo "<td>" .$row["St_serial"] .  "</td> ";
 		  echo "<td>" .$row["Rec_date"] .  "</td> ";
 		  echo "<td>" .$User_name .  "</td> ";
+		  echo "<td>" .$Sup_name .  "</td> ";
 		  echo "<td>" .$row["Comment"] .  "</td> ";
 		$_SESSION['St_serial'] = $row["St_serial"];
 		//ดู แก้ไข ลบข้อมูล 

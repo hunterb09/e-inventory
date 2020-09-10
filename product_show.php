@@ -127,7 +127,7 @@ echo "<caption>ข้อมูลรายการ: " . page_start_row() . " - 
 echo "<tr>";
 echo "<tr align='center' bgcolor='#CCCCCC'>
 			<th width='5%'>รหัสสินค้า </th>
-			<th width='5%'>รหัสหมวดหมู่สินค้า </th>
+			<th width='5%'>หมวดหมู่ </th>
 			<th width='15%'>ชื่อสินค้า </th>
 			<th width='15%'>ชื่อเรียกสินค้า </th>
 			<th width='10%'>หมายเหตุ </th>

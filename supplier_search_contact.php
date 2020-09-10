@@ -1,12 +1,12 @@
 <?php
-	$data = $_POST['Sup_id'];
+	$data = $_POST['Contact_name'];
 	session_start();
 	include("pagination.php");
 
 	//1. เชื่อมต่อ database:
 	require("connection.php");
 	
-	$sql = "SELECT * FROM supplier WHERE Sup_id LIKE '%$data%' ";
+	$sql = "SELECT * FROM supplier WHERE Contact_name LIKE '%$data%' ";
 	$result = page_query($link, $sql, 10);
 
 
@@ -91,8 +91,8 @@ while ($row = mysqli_fetch_array($result)) {
 	echo "<td>" . $row["Sup_name"] .  "</td> ";
 	echo "<td>" . $row["Address"] .  "</td> ";
 	echo "<td>" . $row["Phone"] .  "</td> ";
-	echo "<td>" . $row["Contact_name"] .  "</td> ";
-
+    echo "<td>" . $row["Contact_name"] .  "</td> ";
+    
 	$_SESSION['Sup_id'] = $row["Sup_id"];
 	//แก้ไขข้อมูล ลบ
 	echo "<td><center><a href='supplier_update_form.php?Sup_id=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>

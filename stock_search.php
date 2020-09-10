@@ -25,7 +25,7 @@
 			var G_name = document.frmprice2['G_name'].value;
 			var params = "G_name=" + G_name; // +
 			//alert(params);
-			var url = "stock_search_gname.php"; // 
+			var url = "stock_search_group.php"; // 
 			var Addnew = new Ajax.Updater(Div, url, {
 				method: "post",
 				parameters: params
@@ -39,7 +39,7 @@
 			<table border="0" width="80%" align="center">
 				<tbody>
 					<tr>
-						<td class="text-right" width="10%">จากชื่อ: </td>
+						<td class="text-right" width="10%">จากชื่อสินค้า: </td>
 						<td class="text-left" width="10%"><input type="text" name="P_name"><input id="button" type="button" onclick="Product(stock)" value="ค้นหา"></td>
 					</tr>
 				</tbody>

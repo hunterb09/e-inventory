@@ -155,11 +155,11 @@ if ($P_id <= 9) {
 				}
 				var floatQty = parseFloat(QtyI); //แปลงเป็นตัวเลขทศนิยม
 				if (Number.isInteger(floatQty)) { //ถ้าเป็นจำนวนเต็มtrue ถ้าไม่เป็นจำนวนเต็มfalse
-				}else{
+				} else {
 					alert("กรุณากรอกจำนวน เป็นตัวเลขจำนวนเต็ม แถวที่" + i);
 					noERROR = false;
 				}
-	
+
 				var PriceI = $('#Price' + i).val(); //ราคา
 				if ((PriceI.trim() == "") || (PriceI.trim() < 1)) { //เช็คค่าว่าง และค่าตัวเลข > 0
 					alert("กรุณากรอกราคา เป็นตัวเลข > 0 แถวที่" + i);
@@ -176,7 +176,7 @@ if ($P_id <= 9) {
 					let P_nameJ = $('#P_name' + j).val();
 					//alert("เข้าลูปfor2" + P_nameJ);
 					if (P_nameI == P_nameJ) {
-						alert("ชื่อสินค้า "+P_nameI+" มีซ้ำกัน");
+						alert("ชื่อสินค้า " + P_nameI + " มีซ้ำกัน");
 						noERROR = false;
 					}
 				}
@@ -203,7 +203,20 @@ if ($P_id <= 9) {
 	<center>
 		<h2><img src="picture/product/product.png" width="50" height="50"> <u> รับสินค้าเข้า </u></h2><br>
 		<form id="form" method=post action="stock_in_insert.php" enctype="multipart/form-data">
-			<h2>เลขที่ใบรับ: <?php echo $P_id; ?></h2>
+			<table border="0" width="80%" align="center">
+				<tbody>
+					<tr>
+						<td class="text-right" width="10%">เลขที่ใบรับ: </td>
+						<td class="text-left" width="10%"><h3><?php echo $P_id; ?><h3></td>
+						<td class="text-right" width="20%">ซัพพลายเออร์: </td>
+						<td class="text-left" width="10%"><select name='Sup_name' id='Sup_name'>
+								<?php while ($row3 = mysqli_fetch_array($result3)) { ?>
+									<option value='<?php echo $row3["Sup_name"] ?>'> <?php echo $row3["Sup_name"] ?></option>
+								<?php } ?>
+							</select></td>
+					</tr>
+				</tbody>
+			</table>
 			<table border="1" width="80%" align="center" id="myTable">
 				<thead>
 					<tr>
@@ -232,12 +245,6 @@ if ($P_id <= 9) {
 			<table border="0" width="80%" align="center">
 				<tbody>
 					<tr>
-						<td class="text-right" width="20%">ซัพพลายเออร์: </td>
-						<td class="text-left" width="10%"><select name='Sup_name' id='Sup_name'>
-								<?php while ($row3 = mysqli_fetch_array($result3)) { ?> 
-									<option value='<?php echo $row3["Sup_name"] ?>'> <?php echo $row3["Sup_name"] ?></option>
-								<?php } ?>
-						</select></td>
 						<td class="text-right" width="10%">หมายเหตุ: </td>
 						<td class="text-left" width="10%"><textarea name="Comment" id="Comment" cols="30" rows="1"></textarea></td>
 					</tr>

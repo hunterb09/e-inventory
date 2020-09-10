@@ -1,13 +1,15 @@
 <?php
-	$data = $_POST['P_group'];
+	$data = $_POST['G_name'];
 	session_start();
 	include("pagination.php");
 
 	//1. เชื่อมต่อ database:
 	require("connection.php");
 	
-	$sql = "SELECT * FROM product WHERE P_group LIKE '%$data%' ";
-	$result = page_query($link, $sql, 10);
+	//แปลงจากชื่อหมวดหมู่เป็นรหัส
+	$sql1 = "SELECT * FROM p_group WHERE G_name LIKE '%$data%' ";
+	$result11 = mysqli_query($link, $sql1);
+
 
 
 ?>
@@ -78,26 +80,39 @@
 	echo "<tr>";
 	echo "<tr align='center' bgcolor='#CCCCCC'>
 			<th width='5%'>รหัสสินค้า </th>
-			<th width='5%'>รหัสหมวดหมู่สินค้า </th>
+			<th width='5%'>หมวดหมู่ </th>
 			<th width='15%'>ชื่อสินค้า </th>
 			<th width='15%'>ชื่อเรียกสินค้า </th>
 			<th width='10%'>หมายเหตุ </th>
 			<th width='15%'>จัดการ </th>
 		  </tr>";
 		  
-	while($row = mysqli_fetch_array($result)) {
-	  echo "<tr align='center'>";
-	 	  echo "<td>" .$row["P_id"] .  "</td> ";
-		  echo "<td>" .$row["P_group"] .  "</td> ";
-		  echo "<td>" .$row["P_name"] .  "</td> ";
-		  echo "<td>" .$row["P_tradename"] .  "</td> ";
-		  echo "<td>" .$row["Comment"] .  "</td> ";
-			
-		$_SESSION['P_id'] = $row["P_id"];
-		//รูปภาพ แก้ไขข้อมูล ลบ
-		echo "<td><center><a href='product_update_form.php?P_id=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>
-		<a href='product_delete.php?P_id=$row[0] ' onclick=\"return confirm('ต้องการที่จะลบสินค้าหรือไม่ ')\"><button class='btn btn-danger'>ลบ</button></a></td> ";	
-	  echo "</tr>";
+	while ($row11 = mysqli_fetch_array($result11)) {
+		$P_group = $row11["P_group"];
+		$sql = "SELECT * FROM product WHERE P_group LIKE '%$P_group%' ";
+		$result = page_query($link, $sql, 100);
+		while ($row = mysqli_fetch_array($result)) {
+			$P_group = $row['P_group'];
+			//แปลงจากรหัสเป็นชื่อหมวดหมู่
+			$sql1 = "SELECT * FROM p_group WHERE P_group = '$P_group' ";
+			$result1 = mysqli_query($link, $sql1);
+			$row1 = mysqli_fetch_array($result1);
+			$G_name = $row1["G_name"];
+	
+			echo "<tr align='center'>";
+
+			echo "<td>" .$row["P_id"] .  "</td> ";
+			echo "<td>" .$G_name .  "</td> ";
+			echo "<td>" .$row["P_name"] .  "</td> ";
+			echo "<td>" .$row["P_tradename"] .  "</td> ";
+			echo "<td>" .$row["Comment"] .  "</td> ";
+				
+			$_SESSION['P_id'] = $row["P_id"];
+			//รูปภาพ แก้ไขข้อมูล ลบ
+			echo "<td><center><a href='product_update_form.php?P_id=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>
+			<a href='product_delete.php?P_id=$row[0] ' onclick=\"return confirm('ต้องการที่จะลบสินค้าหรือไม่ ')\"><button class='btn btn-danger'>ลบ</button></a></td> ";	
+			echo "</tr>";
+		}
 	}
 	echo "</table>";
 	//mysqli_close($link);	

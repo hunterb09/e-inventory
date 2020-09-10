@@ -71,14 +71,17 @@
 	echo '<p></p>';
 	echo "<a href='unit_search.php?ID='> ย้อนกลับ </a>";*/
 	
-	//หัวข้อตาราง
-	echo "<table id='table' border='1' align='center' width='80%'>";
-	echo "<caption>ข้อมูลรายการ: " . page_start_row() . " - " . page_stop_row() . 
- 		 " จากทั้งหมด: " . page_total_rows() . "</caption>";
-	echo "<tr>";
-	echo "<tr align='center' bgcolor='#CCCCCC'>
-			<th width='8%'>รหัสซัพพลายเออร์ </th>
-			<th width='15%'>ชื่อซัพพลายเออร์ </th>
+//หัวข้อตาราง
+echo "<table class='table-hover' id='table' border='1' align='center' width='80%'>";
+echo "<caption>ข้อมูลรายการ: " . page_start_row() . " - " . page_stop_row() .
+	" จากทั้งหมด: " . page_total_rows() . "</caption>";
+echo "<tr>";
+echo "<tr align='center' bgcolor='#CCCCCC'>
+			<th width='5%'>รหัส </th>
+			<th width='10%'>ชื่อผู้จัดส่ง </th>
+			<th width='15%'>ที่อยู่ </th>
+			<th width='5%'>โทรศัพท์ </th>
+			<th width='10%'>ชื่อผู้ที่จะติดต่อ </th>
 			<th width='15%'>จัดการ </th>
 		  </tr>";
 
@@ -86,6 +89,9 @@ while ($row = mysqli_fetch_array($result)) {
 	echo "<tr align='center'>";
 	echo "<td>" . $row["Sup_id"] .  "</td> ";
 	echo "<td>" . $row["Sup_name"] .  "</td> ";
+	echo "<td>" . $row["Address"] .  "</td> ";
+	echo "<td>" . $row["Phone"] .  "</td> ";
+	echo "<td>" . $row["Contact_name"] .  "</td> ";
 
 	$_SESSION['Sup_id'] = $row["Sup_id"];
 	//แก้ไขข้อมูล ลบ

@@ -31,6 +31,16 @@ session_start();
 				parameters: params
 			});
 		}
+		function Product3(Div) {
+			var Contact_name = document.frmprice3['Contact_name'].value;
+			var params = "Contact_name=" + Contact_name; // +
+			//alert(params);
+			var url = "supplier_search_contact.php"; // 
+			var Addnew = new Ajax.Updater(Div, url, {
+				method: "post",
+				parameters: params
+			});
+		}
 	</script>
 </head>
 
@@ -54,6 +64,17 @@ session_start();
 					<tr>
 						<td class="text-right" width="10%">จากชื่อ: </td>
 						<td class="text-left" width="10%"><input type="text" name="Sup_name"><input id="button2" type="button" onclick="Product2(stock)" value="ค้นหา"></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+
+		<form method=post action="supplier_search_contact.php" name="frmprice3">
+			<table border="0" width="80%" align="center">
+				<tbody>
+					<tr>
+						<td class="text-right" width="10%">จากชื่อผู้ที่จะติดต่อ: </td>
+						<td class="text-left" width="10%"><input type="text" name="Contact_name"><input id="button3" type="button" onclick="Product3(stock)" value="ค้นหา"></td>
 					</tr>
 				</tbody>
 			</table>
