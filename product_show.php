@@ -135,9 +135,16 @@ echo "<tr align='center' bgcolor='#CCCCCC'>
 		  </tr>";
 
 while ($row = mysqli_fetch_array($result)) {
+	$P_group = $row["P_group"];
+	//ดึงหมวดหมู่จากสินค้า แปลงจากรหัสเป็นชื่อหมวดหมู่
+	$sql = "SELECT * FROM p_group WHERE P_group = '$P_group' ";
+	$result2 = mysqli_query($link, $sql);
+	$row2 = mysqli_fetch_array($result2);
+	$G_name = $row2["G_name"];
+
 	echo "<tr align='center'>";
 	echo "<td>" . $row["P_id"] .  "</td> ";
-	echo "<td>" . $row["P_group"] .  "</td> ";
+	echo "<td>" . $G_name .  "</td> ";
 	echo "<td>" . $row["P_name"] .  "</td> ";
 	echo "<td>" . $row["P_tradename"] .  "</td> ";
 	echo "<td>" . $row["Comment"] .  "</td> ";

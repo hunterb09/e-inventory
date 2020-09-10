@@ -28,15 +28,15 @@
     <br><br><br><!--<center><h2>ผู้ดูแลระบบ</h2>-->
     <div class="container-fluid text-center text-white">
         <div class="row border-bottom">
-            <div class="col-sm-4 border"><a id="product" href="product_show.php" ><img src="picture/menu_a/news.png" width="150"height="150"><br><button class= "btn btn-success">สินค้า</button></a></div>
-            <div class="col-sm-4 border"><a id="group" href="group_show.php" ><img src="picture/menu_a/images.png" width="150"height="150"><br><button class= "btn btn-success">หมวดหมู่สินค้า</button></a></div>
-            <div class="col-sm-4 border"><a id="unit" href="unit_show.php" ><img src="picture/menu_a/officer.png" width="150"height="150"><br><button class= "btn btn-success">หน่วยสินค้า</button></a></div>
+            <div class="col-sm-4 border"><a id="product" href="product_show.php" ><img src="picture/menu_a/buy.png" width="150"height="150"><br><button class= "btn btn-success">สินค้า</button></a></div>
+            <div class="col-sm-4 border"><a id="group" href="group_show.php" ><img src="picture/menu_a/group.png" width="150"height="150"><br><button class= "btn btn-success">หมวดหมู่สินค้า</button></a></div>
+            <div class="col-sm-4 border"><a id="unit" href="unit_show.php" ><img src="picture/menu_a/unit.png" width="150"height="150"><br><button class= "btn btn-success">หน่วยสินค้า</button></a></div>
         </div>
         <br><br><br>
         <div class="row border-bottom">
-            <div class="col-sm-4 border"><a id="user" href="purpose_show.php" ><img src="picture/menu_a/user.png" width="150"height="150"><br><button class= "btn btn-success">วัตถุประสงค์</button></a></div>
-            <div class="col-sm-4 border"><a id="stock_in" href="stock_in_show.php" ><img src="picture/menu_a/buy.png" width="150"height="150"><br><button class= "btn btn-success">รับสินค้าเข้า</button></a></div>
-            <div class="col-sm-4 border"><a id="sell" href="stock_out_show.php" ><img src="picture/menu_a/sell.png" width="150"height="150"><br><button class= "btn btn-success">เบิกสินค้าออก</button></a></div>
+            <div class="col-sm-4 border"><a id="purpose" href="purpose_show.php" ><img src="picture/menu_a/purpose.png" width="150"height="150"><br><button class= "btn btn-success">วัตถุประสงค์</button></a></div>
+            <div class="col-sm-4 border"><a id="stock_in" href="stock_in_show.php" ><img src="picture/menu_a/stock_in.png" width="150"height="150"><br><button class= "btn btn-success">รับสินค้าเข้า</button></a></div>
+            <div class="col-sm-4 border"><a id="stock_out" href="stock_out_show.php" ><img src="picture/menu_a/stock_out.png" width="150"height="150"><br><button class= "btn btn-success">เบิกสินค้าออก</button></a></div>
         </div>
     </div>
 </body>

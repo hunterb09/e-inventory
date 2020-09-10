@@ -2,9 +2,6 @@
 <html lang="th">
 <head>
     <meta charset="utf-8">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
 	<script src="js/holder.min.js"></script>
 </head>
 <body class="py-5">

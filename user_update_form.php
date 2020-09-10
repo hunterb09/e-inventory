@@ -15,7 +15,7 @@ $User_id = mysqli_real_escape_string($link, $_GET['User_id']);
 
 //2. query ข้อมูลจากตาราง: 
 $sql = "SELECT * FROM user WHERE User_id='$User_id' ";
-$result = mysqli_query($link, $sql) or die("Error in query: $sql " . mysqli_error());
+$result = mysqli_query($link, $sql);
 $row = mysqli_fetch_array($result);
 extract($row);
 session_start();

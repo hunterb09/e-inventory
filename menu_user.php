@@ -29,8 +29,8 @@
     <div class="container-fluid text-center text-white">
         <div class="row border-bottom">
             <div class="col-2"></div>
-            <div class="col-4 border"><a id="stock_in" href="stock_in_show.php" ><img src="picture/menu_a/buy.png" width="150"height="150"><br><button class= "btn btn-success">รับสินค้าเข้า</button></a></div>
-            <div class="col-4 border"><a id="sell" href="stock_out_show.php" ><img src="picture/menu_a/sell.png" width="150"height="150"><br><button class= "btn btn-success">เบิกสินค้าออก</button></a></div>
+            <div class="col-4 border"><a id="stock_in" href="stock_in_show.php" ><img src="picture/menu_a/stock_in.png" width="150"height="150"><br><button class= "btn btn-success">รับสินค้าเข้า</button></a></div>
+            <div class="col-4 border"><a id="stock_out" href="stock_out_show.php" ><img src="picture/menu_a/stock_out.png" width="150"height="150"><br><button class= "btn btn-success">เบิกสินค้าออก</button></a></div>
             <div class="col-2"></div>
         </div>
     </div>

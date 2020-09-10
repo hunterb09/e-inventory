@@ -42,9 +42,9 @@
                 $Unit_id = $row2["Unit_id"];
 
                 //เพิ่มรายการ stock_indti
-                $sql3 = "INSERT INTO stock_indtl (St_serial, St_no, P_id, Unit_id, Qty, Price) 
+                $sql3 = "INSERT INTO stock_indtl (St_serial, St_no, P_id, Unit_id, Qty, Qty_change, Price) 
                     VALUES ('$St_serial', '".$_POST["St_no$i"]."', '$P_id',
-                    '$Unit_id', '".$_POST["Qty$i"]."', '".$_POST["Price$i"]."')";
+                    '$Unit_id', '".$_POST["Qty$i"]."', '".$_POST["Qty$i"]."', '".$_POST["Price$i"]."')";
                 $result3 = mysqli_query($link,$sql3);
                 
         }

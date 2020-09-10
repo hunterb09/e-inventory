@@ -21,10 +21,7 @@
 			});
 		}
 		function Product2(Div) {
-			var Rec_date = document.frmprice2['Rec_date'].value;
-			var params = "Rec_date=" + Rec_date; // +
-			var Rec_date1 = document.frmprice2['Rec_date1'].value;
-			var params2 = "Rec_date1=" + Rec_date1; // +
+			var params = Form.serialize("frmprice2"); // +
 			//alert(params);
 			var url = "stock_out_search_date.php"; // 
 			var Addnew = new Ajax.Updater(Div, url, {
@@ -58,7 +55,7 @@
 			</table>
         </form>
 
-        <form method=post action="stock_out_search_date.php" name="frmprice2">
+        <form method=post action="stock_out_search_date.php" name="frmprice2" id="frmprice2">
 			<table border="0" width="80%" align="center">
 				<tbody>
 					<tr>
