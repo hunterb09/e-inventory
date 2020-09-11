@@ -54,7 +54,7 @@
 	</script>
 	</head>
 	<body><br><br><center>
-		<h2><img src="picture/menu/search.png" width="50"height="50"> <u> ค้นหาสินค้า  </u></h2><br>
+		<h2 id="h2"><img src="picture/menu/search.png" width="50"height="50"> <u> ค้นหาสินค้า  </u></h2><br>
 		<form method=post action="product_search_id.php" name="frmprice">
 			<table border="0" width="80%" align="center">
 				<tbody>
@@ -97,9 +97,9 @@
 					</tr>
 				</tbody>
 			</table>
-        </form>
+		</form>
+		<br><a href='product_show.php'>ย้อนกลับ </a><hr>
         <div align="center" id="stock"></div>
-		<br><a href='product_show.php'>ย้อนกลับ </a>
 		
 	</body>
 </html>

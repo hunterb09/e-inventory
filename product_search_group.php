@@ -125,5 +125,6 @@
 ?>
 <?php 
 //สร้างแถบเมนู
+echo "<br><br><a href='#h2'>ไปบนสุด </a>";
 include("navbar_check.php");
 //include("footer.html"); ?>	

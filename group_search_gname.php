@@ -7,7 +7,7 @@
 	require("connection.php");
 	
 	$sql = "SELECT * FROM p_group WHERE G_name LIKE '%$data%' ";
-	$result = page_query($link, $sql, 10);
+	$result = page_query($link, $sql, 100);
 
 
 ?>

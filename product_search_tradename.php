@@ -7,7 +7,7 @@
 	require("connection.php");
 	
 	$sql = "SELECT * FROM product WHERE P_tradename LIKE '%$data%' ";
-	$result = page_query($link, $sql, 10);
+	$result = page_query($link, $sql, 100);
 
 
 ?>
@@ -110,13 +110,14 @@
 	echo "</table>";
 	//mysqli_close($link);	
 	//echo "</form>";
-	page_link_border("solid", "1px", "gray");
+	/*page_link_border("solid", "1px", "gray");
 	page_link_bg_color("lightblue", "pink");
 	page_link_font("14px");
 	page_link_color("blue", "red");
-	page_echo_pagenums(6, true);
+	page_echo_pagenums(6, true);*/
 ?>
 <?php 
 //สร้างแถบเมนู
+echo "<br><br><a href='#h2'>ไปบนสุด </a>";
 include("navbar_check.php");
 //include("footer.html"); ?>	

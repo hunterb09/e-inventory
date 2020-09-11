@@ -34,7 +34,7 @@
 	</script>
 	</head>
 	<body><br><br><center>
-		<h2><img src="picture/menu/search.png" width="50"height="50"> <u> ค้นหาสต๊อกสินค้า  </u></h2><br>
+		<h2 id="h2"><img src="picture/menu/search.png" width="50"height="50"> <u> ค้นหาสต๊อกสินค้า  </u></h2><br>
 		<form method=post action="stock_search_name.php" name="frmprice">
 			<table border="0" width="80%" align="center">
 				<tbody>

@@ -42,7 +42,7 @@ session_start();
 
 <body><br><br>
 	<center>
-		<h2 id="h2"><img src="picture/menu/search.png" width="50" height="50"> <u> ค้นหาหมวดหมู่สินค้า </u></h2><br>
+		<h2 id="h2"><img src="picture/menu/search.png" width="50" height="50"> <u> ค้นหาหมวดหมู่ </u></h2><br>
 		<form method=post action="group_search_g.php" name="frmprice">
 			<table border="0" width="80%" align="center">
 				<tbody>

@@ -7,7 +7,7 @@
 	require("connection.php");
 	
 	$sql = "SELECT * FROM user WHERE User_status LIKE '%$data%' ";
-	$result = page_query($link, $sql, 10);
+	$result = page_query($link, $sql, 100);
 
 
 ?>
@@ -108,5 +108,6 @@
 ?>
 <?php 
 //สร้างแถบเมนู
+echo "<br><a href='#h2'>ไปบนสุด </a><hr>";
 include("navbar_check.php");
 //include("footer.html"); ?>	
