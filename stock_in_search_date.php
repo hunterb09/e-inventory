@@ -75,18 +75,33 @@
 	echo "<tr align='center' bgcolor='#CCCCCC'>
 			<th width='10%'>เลขที่ใบรับสินค้า </th>
 			<th width='10%'>วันที่รับ </th>
-			<th width='5%'>รหัสผู้ใช้งาน </th>
+			<th width='5%'>ผู้รับ </th>
+			<th width='5%'>ผู้จัดส่ง </th>
 			<th width='10%'>หมายเหตุ </th>
 			<th width='5%'>จัดการ </th>
 		  </tr>";
 		  
-	while($row = mysqli_fetch_array($result)) {
-	  echo "<tr align='center'>";
-		  echo "<td>" .$row["St_serial"] .  "</td> ";
-		  echo "<td>" .$row["Rec_date"] .  "</td> ";
-		  echo "<td>" .$row["User_id"] .  "</td> ";
-		  echo "<td>" .$row["Comment"] .  "</td> ";
-		$_SESSION['St_serial'] = $row["St_serial"];
+		while($row = mysqli_fetch_array($result)) {
+			//แปลงจากรหัสเป็นชื่อผู้รับ
+			$User_id = $row['User_id'];
+			$sql2 = "SELECT * FROM user WHERE User_id = '$User_id' ";
+			$result2 = mysqli_query($link,$sql2);
+			$row2 = mysqli_fetch_array($result2);	
+			$User_name = $row2["User_name"];
+	
+			//แปลงจากรหัสเป็นชื่อผู้จัดส่ง
+			$Sup_id = $row['Sup_id'];
+			$sql3 = "SELECT * FROM supplier WHERE Sup_id = '$Sup_id' ";
+			$result3 = mysqli_query($link,$sql3);
+			$row3= mysqli_fetch_array($result3);	
+			$Sup_name = $row3["Sup_name"];
+			   echo "<tr align='center'>";
+			  echo "<td>" .$row["St_serial"] .  "</td> ";
+			  echo "<td>" .$row["Rec_date"] .  "</td> ";
+			  echo "<td>" .$User_name .  "</td> ";
+			  echo "<td>" .$Sup_name .  "</td> ";
+			  echo "<td>" .$row["Comment"] .  "</td> ";
+			$_SESSION['St_serial'] = $row["St_serial"];
 		//ดู แก้ไข ลบข้อมูล 
 		echo "<td><center><a href='stock_in_showbill.php?St_serial=$row[0]'><button class='btn btn-info'>ดูข้อมูล</button></a></td> ";	
 		//<a href='stock_in_update_form.php?St_serial=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>

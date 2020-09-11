@@ -104,10 +104,10 @@
 		echo "<td>" . $row["Comment"] .  "</td> ";
 		$_SESSION['Stout_serial'] = $row["Stout_serial"];
 		//ดู แก้ไข ลบข้อมูล 
-		echo "<td><center><a href='stock_in_showbill.php?St_serial=$row[0]'><button class='btn btn-info'>ดูข้อมูล</button></a></td> ";	
+		echo "<td><center><a href='stock_out_showbill.php?Stout_serial=$row[0]'><button class='btn btn-info'>ดูข้อมูล</button></a></td> ";	
 		//<a href='stock_in_update_form.php?St_serial=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>
 		//<a href='stock_in_delete.php?St_serial=$row[0] ' onclick=\"return confirm('ต้องการที่จะลบรายการหรือไม่ ')\"><button class='btn btn-danger'>ลบ</button></a></td> ";	
-	  echo "</tr>";
+		echo "</tr>";
 	}
 	echo "</table>";
 	//mysqli_close($link);	

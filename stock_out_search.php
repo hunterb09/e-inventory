@@ -30,10 +30,20 @@
 			});
 		}
 		function Product3(Div) {
-			var User_id = document.frmprice3['User_id'].value;
-			var params = "User_id=" + User_id; // +
+			var User_name = document.frmprice3['User_name'].value;
+			var params = "User_name=" + User_name; // +
 			//alert(params);
 			var url = "stock_out_search_uid.php"; // 
+			var Addnew = new Ajax.Updater(Div, url, {
+				method: "post",
+				parameters: params
+			});
+		}
+		function Product4(Div) {
+			var Pp_name = document.frmprice4['Pp_name'].value;
+			var params = "Pp_name=" + Pp_name; // +
+			//alert(params);
+			var url = "stock_out_search_Pp_name.php"; // 
 			var Addnew = new Ajax.Updater(Div, url, {
 				method: "post",
 				parameters: params
@@ -48,7 +58,7 @@
 			<table border="0" width="80%" align="center">
 				<tbody>
 					<tr>
-						<td class="text-right" width="10%">จากเลขที่ใบรับสินค้า: </td>
+						<td class="text-right" width="10%">จากเลขที่ใบเบิกสินค้า: </td>
 						<td class="text-left" width="10%"><input type="text" name="id"><input id="button" type="button" onclick="Product(stock)" value="ค้นหา"></td>
 					</tr>
 				</tbody>
@@ -70,13 +80,24 @@
 			<table border="0" width="80%" align="center">
 				<tbody>
 					<tr>
-						<td class="text-right" width="10%">จากรหัสผู้ใช้งาน: </td>
-						<td class="text-left" width="10%"><input type="text" name="User_id"><input id="button" type="button" onclick="Product3(stock)" value="ค้นหา"></td>
+						<td class="text-right" width="10%">ผู้เบิก: </td>
+						<td class="text-left" width="10%"><input type="text" name="User_name"><input id="button" type="button" onclick="Product3(stock)" value="ค้นหา"></td>
 					</tr>
 				</tbody>
 			</table>
         </form>
-        
+		
+		<form method=post action="stock_out_search_Pp_name.php" name="frmprice4">
+			<table border="0" width="80%" align="center">
+				<tbody>
+					<tr>
+						<td class="text-right" width="10%">วัตถุประสงค์: </td>
+						<td class="text-left" width="10%"><input type="text" name="Pp_name"><input id="button" type="button" onclick="Product4(stock)" value="ค้นหา"></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		
 		<br><a href='stock_out_show.php'>ย้อนกลับ </a>
 		<div align="center" id="stock"></div>
 	</body>

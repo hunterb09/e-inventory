@@ -1,5 +1,5 @@
 <?php
-	$data = $_POST['User_name'];
+	$data = $_POST['Pp_name'];
 	session_start();
 	include("pagination.php");
 
@@ -7,7 +7,7 @@
 	require("connection.php");
 	
 	//แปลงจากชื่อเป็นรหัส
-	$sql1 = "SELECT * FROM user WHERE User_name LIKE '%$data%' ";
+	$sql1 = "SELECT * FROM purpose WHERE Pp_name LIKE '%$data%' ";
 	$result11 = mysqli_query($link, $sql1);
     
 ?>
@@ -83,8 +83,8 @@
 		  </tr>";
 
 	while ($row11 = mysqli_fetch_array($result11)) {
-		$User_id = $row11["User_id"];
-		$sql = "SELECT * FROM stock_outmst WHERE User_id LIKE '%$User_id%' ";
+		$Pp_id = $row11["Pp_id"];
+		$sql = "SELECT * FROM stock_outmst WHERE Pp_id LIKE '%$Pp_id%' ";
 		$result = page_query($link, $sql, 100);
 		while ($row = mysqli_fetch_array($result)) {
             //แปลงจากรหัสเป็นชื่อผู้รับ

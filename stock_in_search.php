@@ -30,8 +30,8 @@
 			});
 		}
 		function Product3(Div) {
-			var User_id = document.frmprice3['User_id'].value;
-			var params = "User_id=" + User_id; // +
+			var User_name = document.frmprice3['User_name'].value;
+			var params = "User_name=" + User_name; // +
 			//alert(params);
 			var url = "stock_in_search_uid.php"; // 
 			var Addnew = new Ajax.Updater(Div, url, {
@@ -81,7 +81,7 @@
 				<tbody>
 					<tr>
 						<td class="text-right" width="10%">จากผู้รับ: </td>
-						<td class="text-left" width="10%"><input type="text" name="User_id"><input id="button" type="button" onclick="Product3(stock)" value="ค้นหา"></td>
+						<td class="text-left" width="10%"><input type="text" name="User_name"><input id="button" type="button" onclick="Product3(stock)" value="ค้นหา"></td>
 					</tr>
 				</tbody>
 			</table>

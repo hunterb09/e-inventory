@@ -1,5 +1,5 @@
 <?php
-	$data = $_POST['User_name'];
+	$data = $_POST['Sup_name'];
 	session_start();
 	include("pagination.php");
 
@@ -7,7 +7,7 @@
 	require("connection.php");
 	
 	//แปลงจากชื่อเป็นรหัส
-	$sql1 = "SELECT * FROM user WHERE User_name LIKE '%$data%' ";
+	$sql1 = "SELECT * FROM supplier WHERE Sup_name LIKE '%$data%' ";
 	$result11 = mysqli_query($link, $sql1);
     
 ?>
@@ -76,15 +76,14 @@
 	echo "<tr align='center' bgcolor='#CCCCCC'>
 			<th width='10%'>เลขที่ใบรับสินค้า </th>
 			<th width='10%'>วันที่รับ </th>
-			<th width='5%'>ผู้เบิก </th>
-			<th width='5%'>วัตถุประสงค์ </th>
+			<th width='5%'>ผู้รับ </th>
+			<th width='5%'>ผู้จัดส่ง </th>
 			<th width='10%'>หมายเหตุ </th>
 			<th width='5%'>จัดการ </th>
 		  </tr>";
-
-	while ($row11 = mysqli_fetch_array($result11)) {
-		$User_id = $row11["User_id"];
-		$sql = "SELECT * FROM stock_outmst WHERE User_id LIKE '%$User_id%' ";
+    while ($row11 = mysqli_fetch_array($result11)) {
+		$Sup_id = $row11["Sup_id"];
+		$sql = "SELECT * FROM stock_inmst WHERE Sup_id LIKE '%$Sup_id%' ";
 		$result = page_query($link, $sql, 100);
 		while ($row = mysqli_fetch_array($result)) {
             //แปลงจากรหัสเป็นชื่อผู้รับ
@@ -94,28 +93,28 @@
             $row2 = mysqli_fetch_array($result2);	
             $User_name = $row2["User_name"];
 
-			//แปลงจากรหัสเป็นวัตถุประสงค์
-			$Pp_id = $row['Pp_id'];
-			$sql2 = "SELECT * FROM purpose WHERE Pp_id = '$Pp_id' ";
-			$result2 = mysqli_query($link,$sql2);
-			$row2 = mysqli_fetch_array($result2);	
-			$Pp_name = $row2["Pp_name"];
+			$Sup_id = $row['Sup_id'];
+			//แปลงจากรหัสเป็นชื่อ
+			$sql1 = "SELECT * FROM supplier WHERE Sup_id = '$Sup_id' ";
+			$result1 = mysqli_query($link, $sql1);
+			$row1 = mysqli_fetch_array($result1);
+			$Sup_name = $row1["Sup_name"];
 	
             echo "<tr align='center'>";
-			echo "<td>" . $row["Stout_serial"] .  "</td> ";
-			echo "<td>" . $row["Rec_date"] .  "</td> ";
-			echo "<td>" . $User_name .  "</td> ";
-			echo "<td>" . $Pp_name .  "</td> ";
-			echo "<td>" . $row["Comment"] .  "</td> ";
-			$_SESSION['Stout_serial'] = $row["Stout_serial"];
+            echo "<td>" .$row["St_serial"] .  "</td> ";
+            echo "<td>" .$row["Rec_date"] .  "</td> ";
+            echo "<td>" .$User_name .  "</td> ";
+            echo "<td>" .$Sup_name .  "</td> ";
+            echo "<td>" .$row["Comment"] .  "</td> ";
+				
+			$_SESSION['St_serial'] = $row["St_serial"];
             //ดู แก้ไข ลบข้อมูล 
-            echo "<td><center><a href='stock_out_showbill.php?Stout_serial=$row[0]'><button class='btn btn-info'>ดูข้อมูล</button></a></td> ";	
+            echo "<td><center><a href='stock_in_showbill.php?St_serial=$row[0]'><button class='btn btn-info'>ดูข้อมูล</button></a></td> ";	
             //<a href='stock_in_update_form.php?St_serial=$row[0]'><button class='btn btn-warning'>แก้ไข</button></a>
             //<a href='stock_in_delete.php?St_serial=$row[0] ' onclick=\"return confirm('ต้องการที่จะลบรายการหรือไม่ ')\"><button class='btn btn-danger'>ลบ</button></a></td> ";	
             echo "</tr>";
         }
-	}			  
-
+	}		  
 	echo "</table>";
 	//mysqli_close($link);	
 	//echo "</form>";
